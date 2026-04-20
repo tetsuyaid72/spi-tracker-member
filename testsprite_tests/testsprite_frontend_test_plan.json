@@ -1,0 +1,923 @@
+[
+  {
+    "id": "TC001",
+    "title": "Log in successfully and land on the map",
+    "description": "Verifies a user can log in with valid credentials and is taken to the map view as the post-login landing page.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the map view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Log out from map and return to login",
+    "description": "Verifies an authenticated user can log out from the map view and is returned to the login page.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Perform the logout action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the login view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "From login, reach the map after signing in",
+    "description": "Verifies a user can go from the login page to a signed-in state and see the map page load successfully.",
+    "category": "Navigation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the map view is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Navigate across main pages while authenticated",
+    "description": "Verifies a logged-in user can use the main navigation to move between map, stores, admin, and settings pages and each page loads.",
+    "category": "Navigation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the stores page"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the admin page"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the settings page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the settings view is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Add a new store and see it in the list",
+    "description": "Verifies a logged-in user can create a store with valid details and the new store appears in the store list.",
+    "category": "Stores Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open stores management"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new store"
+      },
+      {
+        "type": "action",
+        "description": "Fill Store Alpha 101 into the store name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill valid store location details into the location fields"
+      },
+      {
+        "type": "action",
+        "description": "Save the store"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new store appears in the store list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Edit an existing store and see updated details",
+    "description": "Verifies a logged-in user can edit a store and the updated details are shown in the store list.",
+    "category": "Stores Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open stores management"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new store"
+      },
+      {
+        "type": "action",
+        "description": "Fill Store Edit Target into the store name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill valid store location details into the location fields"
+      },
+      {
+        "type": "action",
+        "description": "Save the store"
+      },
+      {
+        "type": "action",
+        "description": "Select the store you just created from the list"
+      },
+      {
+        "type": "action",
+        "description": "Edit the store name to Store Edit Target Updated"
+      },
+      {
+        "type": "action",
+        "description": "Save changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the store list shows the updated store details"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Search stores and view matching results",
+    "description": "Verifies a logged-in user can search stores and see the list update to show only matching stores.",
+    "category": "Stores Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open stores management"
+      },
+      {
+        "type": "action",
+        "description": "Fill a store name or location query into the store search field"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the store list shows results matching the entered query"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Delete a store and confirm it is removed",
+    "description": "Verifies a logged-in user can delete a store and it no longer appears in the store list.",
+    "category": "Stores Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open stores management"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new store"
+      },
+      {
+        "type": "action",
+        "description": "Fill Store Delete Target into the store name field"
+      },
+      {
+        "type": "action",
+        "description": "Fill valid store location details into the location fields"
+      },
+      {
+        "type": "action",
+        "description": "Save the store"
+      },
+      {
+        "type": "action",
+        "description": "Select the store you just created from the list"
+      },
+      {
+        "type": "action",
+        "description": "Initiate deleting the selected store"
+      },
+      {
+        "type": "action",
+        "description": "Confirm the delete action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deleted store no longer appears in the store list"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "View global heatmap and summary statistics as admin",
+    "description": "Verifies an admin can access the admin dashboard and sees both the global heatmap visualization and summary statistics rendered.",
+    "category": "Admin Dashboard (Global Heatmap & Statistics)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a global heatmap visualization is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify summary statistics are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC010",
+    "title": "Add a new user with valid details",
+    "description": "Verifies an admin can create a new user with valid required fields and the new user appears in the users list.",
+    "category": "Users Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the admin page"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new user"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the user name field with Test User A"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the user email field with test.user.a@example.com"
+      },
+      {
+        "type": "action",
+        "description": "Select an appropriate role for the new user"
+      },
+      {
+        "type": "action",
+        "description": "Save the new user"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new user appears in the users list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC011",
+    "title": "Update global heatmap and statistics using dashboard controls",
+    "description": "Verifies that using a dashboard control on the admin dashboard updates both the global heatmap visualization and the summary statistics.",
+    "category": "Admin Dashboard (Global Heatmap & Statistics)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select a different value in a dashboard filter control (such as timeframe or area)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the global heatmap visualization reflects the updated filter selection"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the summary statistics reflect the updated filter selection"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC012",
+    "title": "Edit an existing user and see changes reflected in the list",
+    "description": "Verifies an admin can update an existing user and the updated details are reflected in the users list.",
+    "category": "Users Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the admin page"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new user"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the user name field with Edit Me User"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the user email field with edit.me.user@example.com"
+      },
+      {
+        "type": "action",
+        "description": "Select an appropriate role for the new user"
+      },
+      {
+        "type": "action",
+        "description": "Save the new user"
+      },
+      {
+        "type": "action",
+        "description": "Select the created user from the list"
+      },
+      {
+        "type": "action",
+        "description": "Update the user name field with Edited User Name"
+      },
+      {
+        "type": "action",
+        "description": "Save changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the users list shows the updated user details"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC013",
+    "title": "Search for a user from the admin dashboard",
+    "description": "Verifies an admin can search by name or email on the admin dashboard and see a filtered list of matching users.",
+    "category": "Users Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the admin page"
+      },
+      {
+        "type": "action",
+        "description": "Fill a search term into the user search field"
+      },
+      {
+        "type": "action",
+        "description": "Submit or apply the search"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user list updates to show matching results"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "Delete a user and verify it is removed",
+    "description": "Verifies an admin can delete a user and the user no longer appears in the users list.",
+    "category": "Users Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the admin page"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new user"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the user name field with Delete Me User"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the user email field with delete.me.user@example.com"
+      },
+      {
+        "type": "action",
+        "description": "Select an appropriate role for the new user"
+      },
+      {
+        "type": "action",
+        "description": "Save the new user"
+      },
+      {
+        "type": "action",
+        "description": "Select the created user from the list"
+      },
+      {
+        "type": "action",
+        "description": "Delete the user"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the deleted user is no longer present in the users list"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC015",
+    "title": "Navigate between admin dashboard and stores via app navigation",
+    "description": "Verifies an admin can navigate from the admin dashboard to stores and return using in-app navigation with the admin dashboard still accessible.",
+    "category": "Admin Dashboard (Global Heatmap & Statistics)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to stores"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a global heatmap visualization is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC016",
+    "title": "Persist admin dashboard filter selection during navigation within session",
+    "description": "Verifies that after changing a dashboard filter, navigating away and back within the same session preserves the selected filter and view.",
+    "category": "Admin Dashboard (Global Heatmap & Statistics)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select a different value in a dashboard filter control (such as timeframe or area)"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to map"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard shows the previously selected filter value"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC017",
+    "title": "Reject incorrect credentials",
+    "description": "Verifies login with incorrect credentials shows an authentication failure message and the user is not logged in.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with invalid.user@example.com"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with wrong-password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an authentication failure message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains on the login view"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC018",
+    "title": "Prevent saving a store when required fields are missing",
+    "description": "Verifies the store form shows validation and does not create a store when required fields are empty.",
+    "category": "Stores Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_USER}} into the username field"
+      },
+      {
+        "type": "action",
+        "description": "Fill {{LOGIN_PASSWORD}} into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to open stores management"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new store"
+      },
+      {
+        "type": "action",
+        "description": "Leave required store fields empty"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to save the store"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a required-field validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no new store is added to the store list"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC019",
+    "title": "Show required-field validation on empty login submit",
+    "description": "Verifies submitting the login form with empty required fields shows validation errors and does not log the user in.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify required-field validation errors are visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains on the login view"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC020",
+    "title": "Admin dashboard handles empty-data state gracefully",
+    "description": "Verifies the admin dashboard shows a clear empty state when there is no data for the current dashboard filters while still rendering the dashboard layout.",
+    "category": "Admin Dashboard (Global Heatmap & Statistics)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation link to the admin dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select a filter combination intended to result in no matching data (such as a restrictive timeframe or area)"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty state message is visible for the dashboard data"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard remains usable with controls still available"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC021",
+    "title": "Block creating a user when required fields are missing",
+    "description": "Verifies the add-user form enforces required fields by showing validation errors and not creating the user.",
+    "category": "Users Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the navigation item to go to the admin page"
+      },
+      {
+        "type": "action",
+        "description": "Start adding a new user"
+      },
+      {
+        "type": "action",
+        "description": "Leave required fields empty"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to save the new user"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify validation errors are visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the add-user form remains open"
+      }
+    ],
+    "priority": "Low"
+  }
+]

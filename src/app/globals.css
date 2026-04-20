@@ -1,6 +1,82 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "leaflet/dist/leaflet.css";
+
+/* ────────────────────────────────────────────────────────────────────────── */
+/* Leaflet base                                                              */
+/* ────────────────────────────────────────────────────────────────────────── */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
+/* Premium store popup                                                       */
+/* ────────────────────────────────────────────────────────────────────────── */
+.store-detail-popup .leaflet-popup-content-wrapper {
+  border-radius: 16px;
+  padding: 0;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+}
+
+.store-detail-popup .leaflet-popup-content {
+  margin: 14px 20px;
+  min-width: 240px;
+  font-family: var(--font-sans), 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.store-detail-popup .leaflet-popup-tip {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.store-detail-popup .leaflet-popup-close-button {
+  display: none;
+}
+
+/* ────────────────────────────────────────────────────────────────────────── */
+/* Smooth scroll                                                             */
+/* ────────────────────────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 99px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark * {
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -84,46 +160,50 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.13 0.02 270);
+  --foreground: oklch(0.93 0.005 270);
+  --card: oklch(0.17 0.02 270);
+  --card-foreground: oklch(0.93 0.005 270);
+  --popover: oklch(0.17 0.02 270);
+  --popover-foreground: oklch(0.93 0.005 270);
+  --primary: oklch(0.93 0.005 270);
+  --primary-foreground: oklch(0.17 0.02 270);
+  --secondary: oklch(0.22 0.02 270);
+  --secondary-foreground: oklch(0.93 0.005 270);
+  --muted: oklch(0.22 0.02 270);
+  --muted-foreground: oklch(0.6 0.02 270);
+  --accent: oklch(0.22 0.02 270);
+  --accent-foreground: oklch(0.93 0.005 270);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.5 0.02 270);
+  --chart-1: oklch(0.7 0.15 250);
+  --chart-2: oklch(0.6 0.12 160);
+  --chart-3: oklch(0.55 0.08 30);
+  --chart-4: oklch(0.65 0.15 300);
+  --chart-5: oklch(0.5 0.1 60);
+  --sidebar: oklch(0.15 0.02 270);
+  --sidebar-foreground: oklch(0.93 0.005 270);
+  --sidebar-primary: oklch(0.6 0.2 260);
+  --sidebar-primary-foreground: oklch(0.93 0.005 270);
+  --sidebar-accent: oklch(0.22 0.02 270);
+  --sidebar-accent-foreground: oklch(0.93 0.005 270);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.5 0.02 270);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   html {
     @apply font-sans;
   }

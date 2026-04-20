@@ -1,0 +1,20 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "loginUser": "admin",
+  "loginPassword": "admin123",
+  "executionArgs": {
+    "projectName": "heatmap",
+    "projectPath": "c:\\Users\\Pongo\\Desktop\\heatmap",
+    "testIds": [],
+    "additionalInstruction": "Please do deep QA testing. Check navigation (no blank pages, all menus working), login (empty, incorrect, success, logout), users page (CRUD, search, validation), stores page (CRUD, search, validation), map/heatmap (markers, interaction, zoom/drag), settings (change, save, reload). Also focus on UI/UX (broken buttons, overlapping text), Mobile responsiveness (simulate iPhone/Android viewport sizes), Console errors/warnings, and Performance (heavy rendering, slow loads, click delays). Provide bug reports with severity, repro steps, and suggestions, plus list passed tests.",
+    "serverMode": "production",
+    "envs": {
+      "API_KEY": "sk-user-CQgYOnE31mDW_BPGH33CkQdvnOv9RGf-pyNP9cV7LO9ifLJMyaLz0XR-QD2XAHrJDTOBwKX2ocO0Q2Hd0YFga4teuzqtwOiHnS3HqM6bdA3nG2s_UFrWdwpRSF7rvgs-Fr8"
+    }
+  },
+  "serverPort": 54178,
+  "proxy": "http://104ec663-8c54-4518-8ff7-9ce8ff1954e2:wo4AGiPK6oMpyGJ3ppVwNDm0kafZnigr@tun.testsprite.com:8080"
+}

@@ -1,0 +1,116 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js
+  - Tailwind CSS
+  - React Leaflet
+  - better-sqlite3
+  - drizzle-orm
+  - zustand
+routes:
+  - path: /login
+    file: src/app/login/page.tsx
+    auth_required: false
+    description: User authentication page
+  - path: /admin
+    file: src/app/admin/page.tsx
+    auth_required: true
+    description: Admin dashboard for user management and global heatmap
+  - path: /map
+    file: src/app/map/page.tsx
+    auth_required: true
+    description: Personal map view and store tagging for User role
+  - path: /stores
+    file: src/app/stores/page.tsx
+    auth_required: true
+    description: Store list and management
+  - path: /settings
+    file: src/app/settings/page.tsx
+    auth_required: true
+    description: Application settings
+features:
+  - name: Navigation
+    description: Navigate between all application pages and verify routing
+    files:
+      - src/components/Navigation.tsx
+    entry_route: /
+    user_interactions:
+      - Click main menu items
+      - Wait for page to load completely without errors
+    auth_required: false
+  - name: Authentication
+    description: Login, validation, and logout
+    files:
+      - src/app/login/page.tsx
+    entry_route: /login
+    user_interactions:
+      - Submit empty login form (validation)
+      - Submit incorrect credentials
+      - Submit correct credentials
+      - Logout 
+    api_calls:
+      - method: POST
+        endpoint: /api/auth/sign-in
+    auth_required: false
+  - name: Users Management
+    description: CRUD operations for users
+    files:
+      - src/app/admin/page.tsx
+    entry_route: /admin
+    user_interactions:
+      - Search for a user
+      - Add a new user (with validation)
+      - Edit user
+      - Delete user
+    api_calls:
+      - method: GET
+        endpoint: /api/users
+      - method: POST
+        endpoint: /api/users
+      - method: PUT
+        endpoint: /api/users
+      - method: DELETE
+        endpoint: /api/users
+    auth_required: true
+  - name: Stores Management
+    description: CRUD operations for stores
+    files:
+      - src/app/stores/page.tsx
+    entry_route: /stores
+    user_interactions:
+      - Search for a store
+      - Add a new store
+      - Edit an existing store
+      - Delete a store
+    api_calls:
+      - method: GET
+        endpoint: /api/stores
+      - method: POST
+        endpoint: /api/stores
+      - method: PUT
+        endpoint: /api/stores
+      - method: DELETE
+        endpoint: /api/stores
+    auth_required: true
+  - name: Map Interaction
+    description: Ensure map, markers, and heatmap render and behave properly
+    files:
+      - src/app/map/page.tsx
+    entry_route: /map
+    user_interactions:
+      - Zoom in and out
+      - Drag map
+      - View location data
+    auth_required: true
+  - name: Settings Update
+    description: Modify, save, and reload settings
+    files:
+      - src/app/settings/page.tsx
+    entry_route: /settings
+    user_interactions:
+      - Change setting options
+      - Save settings
+      - Reload and verify persistence
+    auth_required: true
+known_limitations: []
