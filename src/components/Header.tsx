@@ -20,7 +20,7 @@ export function Header() {
         <div className="w-9 h-9 rounded-xl bg-white shadow-sm border border-gray-100/50 dark:border-white/10 flex items-center justify-center p-1.5">
           <img src="/spi-logo.png" alt="SPI" className="w-full h-full object-contain" />
         </div>
-        <div className="hidden sm:block border-l border-gray-200 dark:border-white/10 pl-2.5">
+        <div className="block border-l border-gray-200 dark:border-white/10 pl-2.5">
           <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 leading-tight tracking-tight">Tracker Toko</p>
           <p className="text-[9px] text-gray-300 dark:text-gray-500 font-medium tracking-wider uppercase">Store Management</p>
         </div>
@@ -34,7 +34,7 @@ export function Header() {
         >
           {theme === "dark" ? <Sun size={16} strokeWidth={1.8} /> : <Moon size={16} strokeWidth={1.8} />}
         </button>
-        <div className="text-right hidden sm:block">
+        <div className="text-right hidden md:block">
           <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 leading-tight">{user.name}</p>
           <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium tracking-wide uppercase">{roleLabel}</p>
         </div>
