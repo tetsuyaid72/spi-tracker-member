@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🗺️ SPI Member Tracker
 
-## Getting Started
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-16.2-black.svg?logo=next.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC.svg?logo=tailwind-css)
+![SQLite](https://img.shields.io/badge/SQLite-LibSQL-003B57.svg?logo=sqlite)
 
-First, run the development server:
+A premium, role-based spatial visualizer and tracker designed for field operations. SPI Member Tracker brings enterprise-level mapping capabilities with a sleek, dark-themed ""Antigravity"" aesthetic.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔐 **Role-Based Authentication**: Secure login system with distinct user (Deliman) and Admin experiences, powered by Better Auth.
+- 🗺️ **Interactive Maps**: High-performance interactive mapping using Leaflet and React-Leaflet.
+- 🔥 **Heatmap Visualization**: Visual density tracking for operational insights.
+- 📱 **Mobile-First Design**: Fully responsive interface tailored for field use on any device.
+- 🌙 **Premium Dark Mode**: Sophisticated ""Antigravity"" dark theme for reduced eye strain and modern appeal.
+- ⚡ **Lightning Fast**: Built on Next.js 16 App Router for optimal performance.
+- 🗄️ **Local-First Database**: Uses LibSQL/SQLite via Drizzle ORM for robust data management.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4, Lucide Icons, Shadcn UI
+- **Database**: SQLite (LibSQL)
+- **ORM**: Drizzle ORM
+- **Authentication**: Better Auth
+- **Mapping**: Leaflet, Leaflet-heat
 
-## Learn More
+## 💻 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js 20+
+- npm or pnpm
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/tetsuyaid72/spi-tracker-member.git
+   cd spi-tracker-member
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Configure Environment Variables:
+   Create a `.env` file in the root directory and add:
+   ```env
+   BETTER_AUTH_SECRET=your-super-secret-key
+   BETTER_AUTH_URL=http://localhost:3000
+   NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3000
+   ```
+
+4. Push the database schema:
+   ```bash
+   npx drizzle-kit push
+   ```
+
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🌐 Deployment
+
+This application is ready to be deployed to any VPS (Ubuntu/Debian) using PM2 and Nginx, or modern platforms like Vercel.
+
+## 📄 License
+
+Proprietary - All Rights Reserved.
