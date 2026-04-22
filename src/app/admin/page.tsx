@@ -435,12 +435,20 @@ export default function AdminPage() {
                         onClick={() => setViewingStoreId(s.id)}
                         className="flex items-center gap-3 w-full text-left hover:bg-gray-50/60 dark:hover:bg-white/[0.03] rounded-xl p-2 transition-all duration-200 group"
                       >
-                        <div
-                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-white text-[10px] font-bold shadow-sm"
-                          style={{ background: s.region ? REGION_COLORS[s.region as Region] || '#94a3b8' : '#94a3b8' }}
-                        >
-                          {s.name.charAt(0)}
-                        </div>
+                                                {s.imageData ? (
+                          <img
+                            src={s.imageData}
+                            alt={s.name}
+                            className="w-8 h-8 rounded-lg object-cover shrink-0 shadow-sm"
+                          />
+                        ) : (
+                          <div
+                            className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-white text-[10px] font-bold shadow-sm"
+                            style={{ background: s.region ? REGION_COLORS[s.region as Region] || '#94a3b8' : '#94a3b8' }}
+                          >
+                            {s.name.charAt(0)}
+                          </div>
+                        )}
                         <div className="min-w-0 flex-1">
                           <p className="text-[12px] font-semibold text-gray-700 dark:text-gray-200 truncate">{s.name}</p>
                           <p className="text-[10px] text-gray-300 dark:text-gray-500">{s.userName} · {timeAgo(s.recordedAt)}</p>
