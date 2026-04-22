@@ -2,11 +2,13 @@
 
 import { useSession } from "@/lib/auth-client";
 import { useTheme } from "./ThemeProvider";
+import { useRouter } from "next/navigation";
 import { Sun, Moon } from "lucide-react";
 
 export function Header() {
   const { data: session } = useSession();
   const { theme, toggleTheme } = useTheme();
+  const router = useRouter();
   const user = session?.user;
 
   if (!user) return null;
@@ -38,12 +40,16 @@ export function Header() {
           <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 leading-tight">{user.name}</p>
           <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium tracking-wide uppercase">{roleLabel}</p>
         </div>
-        <div className="relative">
+        <button
+          onClick={() => router.push("/settings")}
+          className="relative cursor-pointer hover:opacity-80 transition-opacity"
+          title="Pengaturan Profil"
+        >
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 dark:from-indigo-600 dark:to-indigo-800 text-white flex items-center justify-center text-[11px] font-bold tracking-tight ring-2 ring-white dark:ring-[#151827] shadow-sm">
             {user.name.charAt(0).toUpperCase()}
           </div>
           <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-white dark:ring-[#151827]" />
-        </div>
+        </button>
       </div>
     </header>
   );
