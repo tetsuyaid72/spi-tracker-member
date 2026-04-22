@@ -188,14 +188,31 @@ export default function AdminPage() {
   };
 
   const exportCSV = () => {
-    const rows = tokoFilteredStores.map((e) =>
-      [e.id, e.name, e.region, e.whatsapp, e.lat, e.lng, e.userName, new Date(e.recordedAt).toISOString()].join(",")
+    const escapeCSV = (val: string | number) => {
+      const str = String(val ?? "");
+      if (str.includes(",") || str.includes('"') || str.includes("\n")) {
+        return '"' + str.replace(/"/g, '""') + '"';
+      }
+      return str;
+    };
+
+    const formatDate = (ts: number) => {
+      const d = new Date(ts);
+      return d.toLocaleDateString("id-ID", { day: "2-digit", month: "2-digit", year: "numeric" }) + " " + d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+    };
+
+    const header = ["No", "Nama Toko", "Wilayah", "WhatsApp", "Latitude", "Longitude", "Deliman", "Status", "Waktu"].map(escapeCSV).join(",");
+    const rows = tokoFilteredStores.map((e, i) =>
+      [i + 1, e.name, e.region || "-", e.whatsapp || "-", e.lat, e.lng, e.userName, e.status, formatDate(e.recordedAt)].map(escapeCSV).join(",")
     );
-    const csv = "ID,Nama Toko,Wilayah,WhatsApp,Lat,Lng,Deliman,Waktu\n" + rows.join("\n");
+
+    // BOM untuk Excel agar baca UTF-8 dengan benar
+    const BOM = "\uFEFF";
+    const csv = BOM + header + "\n" + rows.join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "data_toko_spi.csv";
+    link.download = "data_toko_spi_" + new Date().toISOString().slice(0, 10) + ".csv";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
