@@ -82,6 +82,11 @@ export default function AdminPage() {
   const addFileRef = useRef<HTMLInputElement>(null);
   const [addSuccess, setAddSuccess] = useState("");
 
+  // Google Maps link resolver
+  const [gmapsUrl, setGmapsUrl] = useState("");
+  const [gmapsLoading, setGmapsLoading] = useState(false);
+  const [gmapsError, setGmapsError] = useState("");
+
   // ---------------------------------------------------------------------------
   // Derived data
   // ---------------------------------------------------------------------------
@@ -219,6 +224,49 @@ export default function AdminPage() {
     img.src = url;
   };
 
+  const handleResolveGmaps = async (urlToResolve?: string) => {
+    const targetUrl = urlToResolve || gmapsUrl.trim();
+    if (!targetUrl) return;
+    setGmapsLoading(true);
+    setGmapsError("");
+    try {
+      const res = await fetch("/api/stores/resolve-gmaps", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: targetUrl }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setGmapsError(data.error || "Gagal memproses URL");
+        return;
+      }
+      setAddData((d) => ({
+        ...d,
+        name: data.name || d.name,
+        lat: String(data.lat),
+        lng: String(data.lng),
+      }));
+      setGmapsUrl("");
+    } catch {
+      setGmapsError("Gagal menghubungi server");
+    } finally {
+      setGmapsLoading(false);
+    }
+  };
+
+  const handleGmapsPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasted = e.clipboardData.getData("text");
+    if (
+      pasted.includes("maps.app.goo.gl") ||
+      pasted.includes("goo.gl/maps") ||
+      pasted.includes("google.com/maps") ||
+      pasted.includes("maps.google.com")
+    ) {
+      e.preventDefault();
+      setGmapsUrl(pasted);
+      setTimeout(() => handleResolveGmaps(pasted), 100);
+    }
+  };
   const handleAddStore = async () => {
     const lat = parseFloat(addData.lat);
     const lng = parseFloat(addData.lng);
@@ -852,16 +900,70 @@ export default function AdminPage() {
       </Dialog>
 
       {/* ==================== DIALOG: ADD STORE ==================== */}
-      <Dialog open={isAddingStore} onOpenChange={(open) => { if (!open) { setIsAddingStore(false); setAddData({ name: "", lat: "", lng: "", region: "", whatsapp: "", imageData: "" }); } }}>
+      <Dialog open={isAddingStore} onOpenChange={(open) => { if (!open) { setIsAddingStore(false); setGmapsUrl(""); setGmapsError(""); setAddData({ name: "", lat: "", lng: "", region: "", whatsapp: "", imageData: "" }); } }}>
         <DialogContent className="sm:max-w-[440px] p-0 gap-0 max-h-[90vh] overflow-y-auto rounded-2xl">
           <DialogHeader className="px-6 pt-6 pb-3">
-            <DialogTitle className="text-[15px] font-semibold text-gray-900">Tambah Toko</DialogTitle>
-            <DialogDescription className="text-xs text-gray-400">Tambahkan toko baru berdasarkan koordinat</DialogDescription>
+            <DialogTitle className="text-[15px] font-semibold text-gray-900 dark:text-gray-100">Tambah Toko</DialogTitle>
+            <DialogDescription className="text-xs text-gray-400">Paste link Google Maps atau isi manual</DialogDescription>
           </DialogHeader>
           <div className="px-6 pb-6 space-y-5">
+            {/* Google Maps Link Input */}
+            <div className="space-y-1.5">
+              <Label className="text-[11px] font-medium text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                <MapPin size={11} className="text-blue-500" />
+                Link Google Maps
+              </Label>
+              <p className="text-[10px] text-gray-300 dark:text-gray-500">
+                Paste link dari Google Maps untuk auto-fill nama dan koordinat
+              </p>
+              <div className="flex gap-2">
+                <Input
+                  value={gmapsUrl}
+                  onChange={(e) => { setGmapsUrl(e.target.value); setGmapsError(""); }}
+                  onPaste={handleGmapsPaste}
+                  placeholder="https://maps.app.goo.gl/..."
+                  className="h-9 bg-gray-50/50 dark:bg-white/[0.04] border-gray-200/60 dark:border-white/[0.06] rounded-xl text-[12px] flex-1"
+                />
+                <Button
+                  type="button"
+                  onClick={() => handleResolveGmaps()}
+                  disabled={!gmapsUrl.trim() || gmapsLoading}
+                  className="h-9 px-3 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-semibold rounded-xl shrink-0 disabled:opacity-50"
+                >
+                {gmapsLoading ? (
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Proses
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1">
+                      <MapPin size={12} /> Extract
+                    </span>
+                  )}
+                </Button>
+              </div>
+              {gmapsError && (
+                <p className="text-[10px] text-red-500 font-medium flex items-center gap-1">
+                  <XCircle size={10} /> {gmapsError}
+                </p>
+              )}
+              {gmapsLoading && (
+                <div className="flex items-center gap-2 text-[10px] text-blue-500 font-medium">
+                  <span className="w-3 h-3 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+                  Mengambil data dari Google Maps..
+                </div>
+              )}
+            </div>
+            {/* Divider */}
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-gray-100 dark:bg-white/[0.06]" />
+              <span className="text-[9px] text-gray-300 dark:text-gray-500 font-medium uppercase tracking-wider">atau isi manual</span>
+              <div className="flex-1 h-px bg-gray-100 dark:bg-white/[0.06]" />
+            </div>
+
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium text-gray-400 uppercase tracking-wider">Nama Toko <span className="text-red-400">*</span></Label>
-              <Input value={addData.name} onChange={(e) => setAddData((d) => ({ ...d, name: e.target.value }))} placeholder="Cth: Toko Berkah Jaya" className="h-10 bg-gray-50/50 border-gray-200/60 rounded-xl text-[13px]" autoFocus />
+              <Input value={addData.name} onChange={(e) => setAddData((d) => ({ ...d, name: e.target.value }))} placeholder="Cth: Toko Berkah Jaya" className="h-10 bg-gray-50/50 dark:bg-white/[0.04] border-gray-200/60 dark:border-white/[0.06] rounded-xl text-[13px]" autoFocus />
             </div>
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium text-gray-400 uppercase tracking-wider">Koordinat GPS <span className="text-red-400">*</span></Label>
@@ -923,7 +1025,7 @@ export default function AdminPage() {
               </div>
             )}
             <div className="flex gap-2.5 pt-2">
-              <Button variant="outline" className="flex-1 h-10 rounded-xl text-[13px] border-gray-200/60" onClick={() => { setIsAddingStore(false); setAddData({ name: "", lat: "", lng: "", region: "", whatsapp: "", imageData: "" }); }}>Batal</Button>
+              <Button variant="outline" className="flex-1 h-10 rounded-xl text-[13px] border-gray-200/60" onClick={() => { setIsAddingStore(false); setGmapsUrl(""); setGmapsError(""); setAddData({ name: "", lat: "", lng: "", region: "", whatsapp: "", imageData: "" }); }}>Batal</Button>
               <Button className="flex-1 h-10 bg-gray-900 text-white hover:bg-gray-800 font-semibold rounded-xl text-[13px]" onClick={handleAddStore} disabled={!addData.name.trim() || !addData.lat || !addData.lng}>
                 Simpan
               </Button>

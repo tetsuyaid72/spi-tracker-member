@@ -7,6 +7,8 @@ import { Navigation } from "./Navigation";
 import { useSession } from "@/lib/auth-client";
 
 const PUBLIC_PATHS = ["/login"];
+const USER_PAGES = ["/map", "/stores"];
+const ADMIN_PAGES = ["/admin"];
 
 export function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
@@ -21,13 +23,31 @@ export function ClientWrapper({ children }: { children: React.ReactNode }) {
   const isPublicPage = PUBLIC_PATHS.includes(pathname);
   const isLoggedIn = !!session?.user;
 
+  const userRole = (session?.user as any)?.role || "USER";
+  const isAdmin = userRole === "ADMIN";
+
   // Redirect to login if not logged in and not on a public page
+  // Redirect admin to /admin if they access user pages
+  // Redirect user to /map if they access admin pages
   useEffect(() => {
     if (!mounted || isPending) return;
+    console.log('[ClientWrapper] Redirect check:', { isLoggedIn, isAdmin, pathname, userRole });
     if (!isLoggedIn && !isPublicPage) {
+      console.log('[ClientWrapper] Redirecting to /login');
       router.replace("/login");
+      return;
     }
-  }, [mounted, isPending, isLoggedIn, isPublicPage, router]);
+    if (isLoggedIn && isAdmin && USER_PAGES.includes(pathname)) {
+      console.log('[ClientWrapper] Admin accessing user page, redirecting to /admin');
+      router.replace("/admin");
+      return;
+    }
+    if (isLoggedIn && !isAdmin && ADMIN_PAGES.includes(pathname)) {
+      console.log('[ClientWrapper] User accessing admin page, redirecting to /map');
+      router.replace("/map");
+      return;
+    }
+  }, [mounted, isPending, isLoggedIn, isPublicPage, isAdmin, pathname, router]);
 
   if (!mounted || isPending) {
     return (

@@ -1,4 +1,5 @@
 import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import { relations } from "drizzle-orm";
 
 // ─── Better Auth tables ──────────────────────────────────────────────────────
 // These tables are required by Better Auth. The column names and types
@@ -72,3 +73,32 @@ export const stores = sqliteTable("stores", {
   recordedAt: integer("recordedAt", { mode: "timestamp" }).notNull(),
   status: text("status").default("APPROVED"), // PENDING | APPROVED | REJECTED
 });
+
+// ─── Relations ───────────────────────────────────────────────────────────────
+
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+  stores: many(stores),
+}));
+
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, {
+    fields: [session.userId],
+    references: [user.id],
+  }),
+}));
+
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
+}));
+
+export const storesRelations = relations(stores, ({ one }) => ({
+  user: one(user, {
+    fields: [stores.userId],
+    references: [user.id],
+  }),
+}));
