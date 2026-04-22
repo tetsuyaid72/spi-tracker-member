@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/db";
-import { user } from "@/db/schema";
+import { user, session as sessionTable, account, stores } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 
@@ -56,7 +56,16 @@ export async function DELETE(request: Request) {
     return Response.json({ error: "Tidak dapat menghapus akun Anda sendiri" }, { status: 400 });
   }
 
-  await db.delete(user).where(eq(user.id, userId));
+  try {
+    // Hapus data terkait user (foreign key)
+    await db.delete(stores).where(eq(stores.userId, userId));
+    await db.delete(sessionTable).where(eq(sessionTable.userId, userId));
+    await db.delete(account).where(eq(account.userId, userId));
+    await db.delete(user).where(eq(user.id, userId));
 
   return Response.json({ success: true });
+  } catch (err) {
+    console.error("Failed to delete user:", err);
+    return Response.json({ error: "Gagal menghapus user" }, { status: 500 });
+  }
 }
