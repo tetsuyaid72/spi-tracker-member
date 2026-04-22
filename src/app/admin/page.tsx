@@ -759,7 +759,7 @@ export default function AdminPage() {
                         <TableCell className="text-xs text-gray-400 dark:text-gray-500">{store.userName}</TableCell>
                         <TableCell className="text-[11px] text-gray-300 dark:text-gray-500">{timeAgo(store.recordedAt)}</TableCell>
                         <TableCell className="text-right">
-                          <div className="flex items-center justify-end gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="flex items-center justify-end gap-0.5">
                             <button onClick={() => setViewingStoreId(store.id)} className="p-1.5 text-gray-300 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/[0.04] rounded-lg transition-colors" title="Detail">
                               <Eye size={13} />
                             </button>
