@@ -6,6 +6,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.heat";
 import { StoreLocation, REGION_COLORS, Region } from "@/store/useAppStore";
+import { useTheme } from "./ThemeProvider";
 import { LocateFixed } from "lucide-react";
 
 // Fix for default Leaflet icon paths in Webpack/Next.js
@@ -102,6 +103,7 @@ interface MapComponentProps {
 
 export default function MapComponent({ stores, showHeatmap, onCenterChange, onDeleteStore, interactiveOptions = true, showLocateButton = false }: MapComponentProps) {
   const mapRef = useRef<L.Map | null>(null);
+  const { theme } = useTheme();
 
   const handleCenterChanged = useCallback((lat: number, lng: number) => {
     if (onCenterChange) {
@@ -126,7 +128,7 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
       >
         <TileLayer
           attribution='© 2026 SPI Tracker'
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          url={theme === "dark" ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"}
         />
 
         {(interactiveOptions || showLocateButton) && <LocationMarker />}
@@ -355,7 +357,7 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
       {(interactiveOptions || showLocateButton) && (
         <button
           onClick={locateUser}
-          className="absolute z-[1000] bottom-24 right-4 bg-white/90 backdrop-blur-md p-2.5 rounded-xl shadow-lg shadow-black/5 text-gray-600 border border-gray-200/60 hover:bg-white hover:text-gray-900 transition-all duration-200"
+          className="absolute z-[1000] bottom-24 right-4 bg-white/90 dark:bg-[#1e2035]/90 backdrop-blur-md p-2.5 rounded-xl shadow-lg shadow-black/5 dark:shadow-black/20 text-gray-600 dark:text-gray-300 border border-gray-200/60 dark:border-white/[0.08] hover:bg-white dark:hover:bg-[#282a45] hover:text-gray-900 dark:hover:text-white transition-all duration-200"
         >
           <LocateFixed size={20} strokeWidth={1.8} />
         </button>
@@ -364,8 +366,8 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
       {/* Target reticle for adding store in the center */}
       {interactiveOptions && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[400] pointer-events-none">
-          <div className="w-7 h-7 rounded-full border-[3px] border-gray-900/80 bg-gray-900/10 shadow-[0_0_0_2px_rgba(255,255,255,0.9)]"></div>
-          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-gray-900 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="w-7 h-7 rounded-full border-[3px] border-gray-900/80 dark:border-white/80 bg-gray-900/10 dark:bg-white/10 shadow-[0_0_2px_rgba(255,255,255,0.9)] dark:shadow-[0_0_0_2px_rgba(0,0,0,0.5)]"></div>
+          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-gray-900 dark:bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         </div>
       )}
     </div>
