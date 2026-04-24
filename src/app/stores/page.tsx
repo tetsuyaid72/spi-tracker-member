@@ -37,7 +37,7 @@ interface EditStoreData {
 }
 
 export default function StoresPage() {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const currentUser = session?.user;
   const isAdmin = (currentUser as any)?.role === "ADMIN";
 
@@ -46,7 +46,11 @@ export default function StoresPage() {
   const deleteStore = useAppStore(state => state.deleteStore);
   const updateStore = useAppStore(state => state.updateStore);
 
-  useEffect(() => { fetchStores(); }, [fetchStores]);
+  useEffect(() => {
+    if (!isPending && session?.user) {
+      fetchStores();
+    }
+  }, [fetchStores, isPending, session]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [activeRegion, setActiveRegion] = useState<FilterRegion>("Semua");

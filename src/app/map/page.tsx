@@ -30,13 +30,15 @@ export default function MapPage() {
   const fetchStores = useAppStore(state => state.fetchStores);
   const stores = useAppStore(state => state.stores);
 
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const currentUser = session?.user;
 
-  // Fetch stores on mount
+  // Fetch stores after session is ready
   useEffect(() => {
-    fetchStores();
-  }, [fetchStores]);
+    if (!isPending && session?.user) {
+      fetchStores();
+    }
+  }, [fetchStores, isPending, session]);
 
   // Show all approved stores on the map (from all users)
   const approvedStores = stores.filter(store => store.status === "APPROVED");
