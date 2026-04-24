@@ -46,17 +46,78 @@
 
 /* Dark popup wrapper */
 .dark .store-detail-popup .leaflet-popup-content-wrapper {
-  background: #1e2035;
+  background: #1a1c2e;
   color: #e5e7eb;
   box-shadow:
-    0 20px 60px rgba(0, 0, 0.4),
-    0 4px 16px rgba(0, 0, 0.3),
-    0 0 1px rgba(255, 255, 255, 0.06);
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 0.06);
 }
 
 .dark .store-detail-popup .leaflet-popup-tip {
-  background: #1e2035;
-  box-shadow: 0 4px 12px rgba(0, 0, 0.3);
+  background: #1a1c2e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0.4);
+}
+
+/* ── Popup dark mode content overides ── */
+.popup-dark div[style] {
+  color: #e5e7eb !important;
+}
+
+/* Store name */
+.popup-dark > div > div:last-child > div:first-child {
+  color: #f3f4f6 !important;
+}
+
+/* Region badge */
+.popup-dark span[style*="background: rgb(249"],
+.popup-dark div[style*="background: rgb(249"],
+.popup-dark div[style*="#f9fafb"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #9ca3af !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* WhatsApp link */
+.popup-dark a[style*="#059669"],
+.popup-dark a[style*="rgb(5, 150"] {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #34d399 !important;
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+/* Navigate button */
+.popup-dark a[style*="#111827"],
+.popup-dark a[style*="rgb(17, 24"] {
+  background: #6366f1 !important;
+  color: #ffffff !important;
+}
+
+/* Maps button */
+.popup-dark a[style*="background: rgb(255, 255, 255)"],
+.popup-dark a[style*="#ffffff"][style*="#374151"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #d1d5db !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Share button */
+.popup-dark button[style*="#f9fafb"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #9ca3af !important;
+  border-color: rgba(255, 255, 0.1) !important;
+}
+
+/* Meta info / footer */
+.popup-dark div[style*="border-top: 1px solid rgb(243"],
+.popup-dark div[style*="#f3f4f6"] {
+  border-color: rgba(255, 255, 0.08) !important;
+  color: #6b7280 !important;
+}
+
+/* Popup main container background */
+.popup-dark > div {
+  background: #1a1c2e !important;
 }
 
 /* Dark mode zoom controls */

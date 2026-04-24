@@ -139,7 +139,7 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
 
           return (
             <Marker key={store.id} position={[store.lat, store.lng]}>
-              <Popup maxWidth={280} minWidth={240} className="store-detail-popup" closeButton={false}>
+              <Popup maxWidth={280} minWidth={240} className={`store-detail-popup ${theme === 'dark' ? 'popup-dark' : 'popup-light'}`} closeButton={false}>
                 <div style={{ margin: '-14px -20px', overflow: 'hidden', fontFamily: "'Inter', -apple-system, sans-serif" }}>
                   {/* Store image hero */}
                   {store.imageData && (
