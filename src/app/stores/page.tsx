@@ -184,10 +184,35 @@ export default function StoresPage() {
 
   const allRegions: FilterRegion[] = ["Semua", ...REGIONS];
 
+  // Scroll hide/show header
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const [headerVisible, setHeaderVisible] = useState(true);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const currentY = el.scrollTop;
+      if (currentY <= 10) {
+        setHeaderVisible(true);
+      } else if (currentY > lastScrollY.current && currentY > 100) {
+        setHeaderVisible(false);
+      } else if (currentY < lastScrollY.current) {
+        setHeaderVisible(true);
+      }
+      lastScrollY.current = currentY;
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="h-full overflow-y-auto">
+    <div ref={scrollRef} className="h-full overflow-y-auto">
       {/* ── Header Section ── */}
-      <div className="sticky top-0 z-10 bg-gradient-to-b from-[#fafafa] via-[#fafafa] to-transparent dark:from-[#0c0e1a] dark:via-[#0c0e1a] dark:to-transparent pb-4">
+      <div className={`sticky top-0 z-10 bg-gradient-to-b from-[#fafafa] via-[#fafafa] to-transparent dark:from-[#0c0e1a] dark:via-[#0c0e1a] dark:to-transparent pb-4 transition-all duration-500 ease-out ${headerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
         <div className="px-5 md:px-8 pt-6">
           <div className="flex items-center justify-between mb-5">
             <div>
