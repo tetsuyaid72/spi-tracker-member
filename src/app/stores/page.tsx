@@ -197,10 +197,8 @@ export default function StoresPage() {
       const currentY = el.scrollTop;
       if (currentY <= 10) {
         setHeaderVisible(true);
-      } else if (currentY > lastScrollY.current && currentY > 100) {
+      } else {
         setHeaderVisible(false);
-      } else if (currentY < lastScrollY.current) {
-        setHeaderVisible(true);
       }
       lastScrollY.current = currentY;
     };
