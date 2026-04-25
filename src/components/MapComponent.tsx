@@ -24,29 +24,10 @@ function getColoredMarkerIcon(color: string): L.DivIcon {
 
   const icon = L.divIcon({
     className: 'custom-marker',
-    html: `<div style="
-      width: 28px;
-      height: 28px;
-      background: ${color};
-      border: 3px solid white;
-      border-radius: 50% 50% 0;
-      transform: rotate(-45deg);
-      box-shadow: 0 2px 8px rgba(0,0,0.3);
-      position: relative;
-    "><div style="
-      width: 10px;
-      height: 10px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.9;
-    "></div></div>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 28],
-    popupAnchor: [0, -28],
+    html: `<svg width="30" height="42" viewBox="0 0 30 42" xmlns="http://www.w3.org/2000/svg"><defs><filter id="s" x="-20%" y="-10%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.3"/></filter></defs><path d="M15 0C6.7 0 0 6.7 0 15c0 10.5 15 27 15 27s15-16.5 15-27C30 6.7 23.3 0 15 0z" fill="${color}" filter="url(#s)"/><circle cx="15" cy="15" r="6" fill="white" opacity="0.9"/></svg>`,
+    iconSize: [30, 42],
+    iconAnchor: [15, 42],
+    popupAnchor: [0, -42],
   });
 
   markerIconCache[color] = icon;
