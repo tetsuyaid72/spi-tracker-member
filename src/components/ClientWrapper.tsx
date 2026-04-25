@@ -54,7 +54,7 @@ export function ClientWrapper({ children }: { children: React.ReactNode }) {
       <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 dark:from-[#0c0e1a] dark:to-[#151827]">
         <div className="flex flex-col items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-white dark:bg-white/10 shadow-lg shadow-gray-200/30 dark:shadow-black/20 flex items-center justify-center p-2">
-            <img src="/spi-logo.png" alt="SPI" className="h-full w-auto object-contain animate-pulse" />
+            <img src="/spi.png" alt="SPI" className="h-full w-auto object-contain animate-pulse" />
           </div>
           <div className="flex items-center gap-2">
             <div className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600 animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -72,7 +72,7 @@ export function ClientWrapper({ children }: { children: React.ReactNode }) {
       <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 dark:from-[#0c0e1a] dark:to-[#151827]">
         <div className="flex flex-col items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-white dark:bg-white/10 shadow-lg shadow-gray-200/30 dark:shadow-black/20 flex items-center justify-center p-2">
-            <img src="/spi-logo.png" alt="SPI" className="h-full w-auto object-contain animate-pulse" />
+            <img src="/spi.png" alt="SPI" className="h-full w-auto object-contain animate-pulse" />
           </div>
           <div className="text-[10px] text-gray-300 dark:text-gray-500 font-medium tracking-widest uppercase">Redirecting</div>
         </div>

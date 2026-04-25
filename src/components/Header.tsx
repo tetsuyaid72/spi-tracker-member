@@ -20,7 +20,7 @@ export function Header() {
     <header className="fixed top-0 w-full h-14 bg-white/85 dark:bg-[#151827]/90 backdrop-blur-2xl border-b border-gray-100 dark:border-white/[0.06] z-50 flex items-center justify-between px-5 md:pl-[15.5rem]">
       <div className="flex items-center gap-2.5">
         <div className="w-9 h-9 rounded-xl bg-white shadow-sm border border-gray-100/50 dark:border-white/10 flex items-center justify-center p-1.5">
-          <img src="/spi-logo.png" alt="SPI" className="w-full h-full object-contain" />
+          <img src="/spi.png" alt="SPI" className="w-full h-full object-contain" />
         </div>
         <div className="block border-l border-gray-200 dark:border-white/10 pl-2.5">
           <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 leading-tight tracking-tight">Tracker Toko</p>
