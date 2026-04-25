@@ -7,7 +7,7 @@ import {
   MapPin, Phone, Search, Share2, Pencil, Trash2,
   Navigation as NavIcon, ImageIcon, X, ArrowUpDown,
   Store, ImagePlus, Loader2, CheckCircle2,
-  ShoppingBag, Globe2, CheckCircle, Clock,
+  Globe2, CheckCircle, Clock,
   MessageCircle
 } from "lucide-react";
 
@@ -205,8 +205,8 @@ export default function StoresPage() {
 
           {/* ── Stat Cards ── */}
           <div className="grid grid-cols-4 gap-2 mb-5">
-            <StatCard icon={<ShoppingBag size={15} />} label="Total" value={stats.total} color="blue" />
-            <StatCard icon={<Globe2 size={15} />} label="Wilayah" value={stats.regions} color="purple" />
+            <StatCard icon={<Store size={15} />} label="Toko Member" value={stats.total} color="blue" />
+            <StatCard icon={<MapPin size={15} />} label="Wilayah" value={stats.regions} color="purple" />
             <StatCard icon={<CheckCircle size={15} />} label="Approved" value={stats.approved} color="green" />
             <StatCard icon={<Clock size={15} />} label="Pending" value={stats.pending} color="amber" />
           </div>
