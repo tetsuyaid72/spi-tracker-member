@@ -150,6 +150,12 @@
   color: #d1d5db !important;
 }
 
+/* Custom colored markers */
+.custom-marker {
+  background: none !important;
+  border: none !important;
+}
+
 /* Smooth tile transition */
 .leaflet-tile-pane {
   transition: opacity 0.3s ease;

@@ -16,6 +16,42 @@ L.Icon.Default.mergeOptions({
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
+// Create colored marker icon based on region
+const markerIconCache: Record<string, L.DivIcon> = {};
+
+function getColoredMarkerIcon(color: string): L.DivIcon {
+  if (markerIconCache[color]) return markerIconCache[color];
+
+  const icon = L.divIcon({
+    className: 'custom-marker',
+    html: `<div style="
+      width: 28px;
+      height: 28px;
+      background: ${color};
+      border: 3px solid white;
+      border-radius: 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 2px 8px rgba(0,0,0.3);
+      position: relative;
+    "><div style="
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.9;
+    "></div></div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 28],
+    popupAnchor: [0, -28],
+  });
+
+  markerIconCache[color] = icon;
+  return icon;
+}
 
 function HeatmapLayer({ points, show }: { points: StoreLocation[], show: boolean }) {
   const map = useMap();
@@ -138,7 +174,7 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
           const regionColor = getRegionColor(store.region);
 
           return (
-            <Marker key={store.id} position={[store.lat, store.lng]}>
+            <Marker key={store.id} position={[store.lat, store.lng]} icon={getColoredMarkerIcon(getRegionColor(store.region))}>
               <Popup maxWidth={280} minWidth={240} className={`store-detail-popup ${theme === 'dark' ? 'popup-dark' : 'popup-light'}`} closeButton={false}>
                 <div style={{ margin: '-14px -20px', overflow: 'hidden', fontFamily: "'Inter', -apple-system, sans-serif" }}>
                   {/* Store image hero */}
