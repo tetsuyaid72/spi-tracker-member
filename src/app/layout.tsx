@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClientWrapper } from "@/components/ClientWrapper";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -11,8 +12,16 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "SPI Tracker",
-  description: "Heatmap tracker for SPI members",
+  description: "Aplikasi tracking dan manajemen toko SPI",
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "SPI Tracker",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export const viewport = {
@@ -32,6 +41,7 @@ export default function RootLayout({
     >
       <body className="flex flex-col h-screen w-screen overflow-hidden text-sm" suppressHydrationWarning>
         <ThemeProvider>
+          <ServiceWorkerRegister />
           <ClientWrapper>{children}</ClientWrapper>
         </ThemeProvider>
       </body>
