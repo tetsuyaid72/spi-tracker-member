@@ -869,7 +869,7 @@ export default function AdminPage() {
 
       {/* ==================== DIALOG: VIEW STORE ==================== */}
       <Dialog open={!!viewingStoreId} onOpenChange={(open) => { if (!open) setViewingStoreId(null); }}>
-        <DialogContent className="sm:max-w-[440px] p-0 gap-0 max-h-[90vh] overflow-y-auto rounded-2xl">
+        <DialogContent className="sm:max-w-[440px] p-0 gap-0 max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-[#1a1c2e] border-gray-200/60 dark:border-white/[0.08]">
           {viewingStore && (
             <>
               {viewingStore.imageData && (
@@ -881,11 +881,11 @@ export default function AdminPage() {
               <div className="p-5 space-y-4">
                 <div>
                   <DialogHeader className="p-0">
-                    <DialogTitle className="text-[15px] font-semibold text-gray-900">{viewingStore.name}</DialogTitle>
+                    <DialogTitle className="text-[16px] font-bold text-gray-900 dark:text-gray-100 tracking-tight">{viewingStore.name}</DialogTitle>
                     <DialogDescription className="sr-only">Detail toko</DialogDescription>
                   </DialogHeader>
                   {viewingStore.region && (
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-gray-400 mt-2">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-gray-400 dark:text-gray-500 mt-2">
                       <span className="w-1.5 h-1.5 rounded-full" style={{ background: REGION_COLORS[viewingStore.region as Region] }} />
                       {viewingStore.region}
                     </span>
@@ -893,29 +893,29 @@ export default function AdminPage() {
                 </div>
                 <div className="space-y-2">
                   {viewingStore.whatsapp && (
-                    <div className="flex items-center gap-3 p-3 bg-emerald-50/50 rounded-xl border border-emerald-100/60">
-                      <Phone size={14} className="text-emerald-600 shrink-0" />
-                      <a href={`https://wa.me/${viewingStore.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-emerald-700 hover:underline">{viewingStore.whatsapp}</a>
+                    <div className="flex items-center gap-3 p-3 bg-emerald-50/50 dark:bg-emerald-500/10 rounded-xl border border-emerald-100/60 dark:border-emerald-500/20">
+                      <Phone size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+                      <a href={`https://wa.me/${viewingStore.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-[13px] font-semibold text-emerald-700 dark:text-emerald-300 hover:underline">{viewingStore.whatsapp}</a>
                     </div>
                   )}
-                  <div className="flex items-center gap-3 p-3 bg-gray-50/50 rounded-xl border border-gray-100/60">
-                    <Navigation size={14} className="text-gray-400 shrink-0" />
-                    <span className="text-[13px] font-mono text-gray-500">{viewingStore.lat.toFixed(6)}, {viewingStore.lng.toFixed(6)}</span>
+                  <div className="flex items-center gap-3 bg-gray-50/50 dark:bg-white/[0.04] rounded-xl border border-gray-100/60 dark:border-white/[0.06]">
+                    <Navigation size={14} className="text-gray-400 dark:text-gray-500 dark:text-gray-500 shrink-0" />
+                                    <span className="text-[13px] font-mono font-medium text-gray-500 dark:text-gray-300">{viewingStore.lat.toFixed(6)}, {viewingStore.lng.toFixed(6)}</span>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-gray-50/50 rounded-xl border border-gray-100/60">
-                    <Users size={14} className="text-gray-400 shrink-0" />
+                  <div className="flex items-center gap-3 p-3 bg-gray-50/50 dark:bg-white/[0.04] rounded-xl border border-gray-100/60 dark:border-white/[0.06]">
+                    <Users size={14} className="text-gray-400 dark:text-gray-500 shrink-0" />
                     <div>
-                      <p className="text-[13px] font-medium text-gray-600">{viewingStore.userName}</p>
-                      <p className="text-[10px] text-gray-300">{new Date(viewingStore.recordedAt).toLocaleString()}</p>
+                      <p className="text-[13px] font-medium text-gray-600 dark:text-gray-300">{viewingStore.userName}</p>
+                      <p className="text-[10px] text-gray-300 dark:text-gray-600">{new Date(viewingStore.recordedAt).toLocaleString("id-ID")}</p>
                     </div>
                   </div>
                 </div>
                 <div className="flex gap-2 pt-1">
-                  <Button variant="outline" className="flex-1 gap-1.5 rounded-xl text-[13px] h-10 border-gray-200/60" onClick={() => { setViewingStoreId(null); setTimeout(() => openEditDialog(viewingStore.id), 150); }}>
+                  <Button variant="outline" className="flex-1 gap-1.5 rounded-xl text-[13px] h-10 border-gray-200/60 dark:border-white/[0.1] dark:text-gray-300 dark:hover:bg-white/[0.06]" onClick={() => { setViewingStoreId(null); setTimeout(() => openEditDialog(viewingStore.id), 150); }}>
                     <Pencil size={13} /> Edit
                   </Button>
                   <a href={`https://www.google.com/maps/dir/?api=1&destination=${viewingStore.lat},${viewingStore.lng}`} target="_blank" rel="noopener noreferrer" className="flex-1">
-                    <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white gap-1.5 rounded-xl text-[13px] h-10"><Navigation size={13} /> Navigasi</Button>
+                    <Button className="w-full bg-gray-900 dark:bg-indigo-600 hover:bg-gray-800 dark:hover:bg-indigo-500 text-white gap-1.5 rounded-xl text-[13px] h-10 shadow-md shadow-gray-900/10 dark:shadow-indigo-900/20"><Navigation size={13} /> Navigasi</Button>
                   </a>
                 </div>
               </div>
