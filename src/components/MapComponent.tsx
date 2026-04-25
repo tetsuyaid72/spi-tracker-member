@@ -390,10 +390,7 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
               if (count === 0) return null;
               return (
                 <div key={region} className="flex items-center gap-2">
-                  <svg width="12" height="16" viewBox="0 0 30 42" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 0C6.7 0 0 6.7 0 15c0 10.5 15 27s15-16.5 15-27C30 6.7 23.3 0 15 0z" fill={color}/>
-                    <circle cx="15" cy="15" r="6" fill="white" opacity="0.9"/>
-                </svg>
+                <span className="w-3 h-3 rounded-full shrink-0 ring-2 ring-white dark:ring-[#1e2035]" style={{ background: color }} />
                   <span className="text-[11px] font-medium text-gray-600 dark:text-gray-300">{region}</span>
                 <span className="text-[10px] text-gray-300 dark:text-gray-600 ml-auto">{count}</span>
                 </div>
