@@ -380,6 +380,29 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
         </button>
       )}
 
+      {/* Region legend */}
+      {!showHeatmap && stores.length > 0 && (
+        <div className="absolute top-3 left-3 z-[1000] bg-white/90 dark:bg-[#1e2035]/90 backdrop-blur-md rounded-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-gray-200/60 dark:border-white/[0.08] p-2.5 max-w-[180px]">
+          <p className="text-[9px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Wilayah</p>
+          <div className="space-y-1">
+            {Object.entries(REGION_COLORS).map(([region, color]) => {
+              const count = stores.filter(s => s.region === region).length;
+              if (count === 0) return null;
+              return (
+                <div key={region} className="flex items-center gap-2">
+                  <svg width="12" height="16" viewBox="0 0 30 42" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 0C6.7 0 0 6.7 0 15c0 10.5 15 27s15-16.5 15-27C30 6.7 23.3 0 15 0z" fill={color}/>
+                    <circle cx="15" cy="15" r="6" fill="white" opacity="0.9"/>
+                </svg>
+                  <span className="text-[11px] font-medium text-gray-600 dark:text-gray-300">{region}</span>
+                <span className="text-[10px] text-gray-300 dark:text-gray-600 ml-auto">{count}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Target reticle for adding store in the center */}
       {interactiveOptions && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[400] pointer-events-none">
