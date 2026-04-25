@@ -210,7 +210,8 @@ export default function StoresPage() {
   return (
     <div ref={scrollRef} className="h-full overflow-y-auto">
       {/* ── Header Section ── */}
-      <div className={`sticky top-0 z-10 bg-gradient-to-b from-[#fafafa] via-[#fafafa] to-transparent dark:from-[#0c0e1a] dark:via-[#0c0e1a] dark:to-transparent pb-4 transition-all duration-500 ease-out ${headerVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
+      {/* ── Collapsible Header (judul + stat cards) ── */}
+      <div className={`overflow-hidden transition-all duration-500 ease-out ${headerVisible ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-5 md:px-8 pt-6">
           <div className="flex items-center justify-between mb-5">
             <div>
@@ -226,16 +227,19 @@ export default function StoresPage() {
             </button>
           </div>
 
-          {/* ── Stat Cards ── */}
-          <div className="grid grid-cols-4 gap-2 mb-5">
+          <div className="grid grid-cols-4 gap-2 mb-4">
             <StatCard icon={<Store size={15} />} label="Toko Member" value={stats.total} color="blue" />
             <StatCard icon={<MapPin size={15} />} label="Wilayah" value={stats.regions} color="purple" />
             <StatCard icon={<CheckCircle size={15} />} label="Approved" value={stats.approved} color="green" />
             <StatCard icon={<Clock size={15} />} label="Pending" value={stats.pending} color="amber" />
           </div>
+        </div>
+      </div>
 
-          {/* ── Search Bar ── */}
-          <div className="relative mb-4">
+      {/* ── Sticky Search + Filter ── */}
+      <div className="sticky top-0 z-10 bg-[#fafafa] dark:bg-[#0c0e1a] pb-3 pt-3">
+        <div className="px-5 md:px-8">
+          <div className="relative mb-3">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-500" />
             <input
               type="text"
