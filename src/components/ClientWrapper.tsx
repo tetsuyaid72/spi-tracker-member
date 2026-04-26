@@ -6,7 +6,7 @@ import { Header } from "./Header";
 import { Navigation } from "./Navigation";
 import { useSession } from "@/lib/auth-client";
 
-const PUBLIC_PATHS = ["/login"];
+const PUBLIC_PATHS = ["/", "/login"];
 const USER_PAGES = ["/map", "/stores"];
 const ADMIN_PAGES = ["/admin"];
 
