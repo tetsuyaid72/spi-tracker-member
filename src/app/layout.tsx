@@ -39,7 +39,7 @@ export default function RootLayout({
       className={`${inter.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex flex-col h-screen w-screen overflow-hidden text-sm" suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen w-screen text-sm" suppressHydrationWarning>
         <ThemeProvider>
           <ServiceWorkerRegister />
           <ClientWrapper>{children}</ClientWrapper>

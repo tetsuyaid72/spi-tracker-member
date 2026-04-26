@@ -36,19 +36,19 @@ export default function Home() {
 
   if (!showLanding) {
     return (
-      <div className="h-screen flex items-center justify-center bg-white">
+      <div className="h-screen flex items-center justify-center bg-white dark:bg-[#0c0e1a]">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-black flex items-center justify-center p-2">
-            <img src="/spi.png" alt="SPI" className="w-full h-full object-contain brightness-0 invert" />
+          <div className="w-12 h-12 rounded-2xl bg-black dark:bg-white flex items-center justify-center p-2">
+            <img src="/spi.png" alt="SPI" className="w-full h-full object-contain brightness-0 invert dark:invert-0" />
           </div>
-          <div className="w-5 h-5 border-2 border-gray-200 border-t-black rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-gray-200 dark:border-gray-700 border-t-black dark:border-t-white rounded-full animate-spin" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-[#0c0e1a]">
       <LandingNav />
       <HeroSection />
       <TrustSection />

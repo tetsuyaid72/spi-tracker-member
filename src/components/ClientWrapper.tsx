@@ -89,7 +89,7 @@ export function ClientWrapper({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <div className="flex pt-14 flex-col md:flex-row h-[calc(100vh-3.5rem)]">
+      <div className="flex pt-14 flex-col md:flex-row h-[calc(100vh-3.5rem)] overflow-hidden">
         <Navigation />
         <main className="flex-1 overflow-auto pb-16 md:pb-0 bg-gradient-to-br from-[#fafafa] to-[#f5f5f5] dark:from-[#0c0e1a] dark:to-[#101320]">
           {children}

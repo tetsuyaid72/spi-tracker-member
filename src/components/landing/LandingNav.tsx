@@ -24,7 +24,7 @@ export default function LandingNav() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 backdrop-blur-xl border-b border-gray-100"
+          ? "bg-white/80 dark:bg-[#0c0e1a]/80 backdrop-blur-xl border-b border-gray-100 dark:border-white/[0.06]"
           : "bg-transparent"
       }`}
     >
@@ -32,10 +32,10 @@ export default function LandingNav() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-black flex items-center justify-center p-1">
-              <img src="/spi.png" alt="SPI" className="w-full h-full object-contain brightness-0 invert" />
+            <div className="w-7 h-7 rounded-lg bg-black dark:bg-white flex items-center justify-center p-1">
+              <img src="/spi.png" alt="SPI" className="w-full h-full object-contain brightness-0 invert dark:invert-0" />
             </div>
-            <span className="text-[15px] font-semibold text-gray-900">SPI Tracker</span>
+            <span className="text-[15px] font-semibold text-gray-900 dark:text-white">SPI Tracker</span>
           </Link>
 
           {/* Desktop Links */}
@@ -61,7 +61,7 @@ export default function LandingNav() {
             </Link>
             <Link
               href="/login"
-              className="text-[14px] font-medium text-white bg-black hover:bg-gray-800 px-4 py-2 rounded-lg transition-colors"
+              className="text-[14px] font-medium text-white bg-black dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors"
             >
               Mulai Gratis
             </Link>
@@ -79,7 +79,7 @@ export default function LandingNav() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
+        <div className="md:hidden bg-white dark:bg-[#0c0e1a] border-t border-gray-100 dark:border-white/[0.06]">
           <div className="px-6 py-4 space-y-1">
             {NAV_LINKS.map((link) => (
               <a
@@ -95,7 +95,7 @@ export default function LandingNav() {
               <Link href="/login" className="block text-center text-[14px] text-gray-600 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors">
                 Login
               </Link>
-              <Link href="/login" className="block text-center text-[14px] font-medium text-white bg-black px-3 py-2 rounded-lg">
+              <Link href="/login" className="block text-center text-[14px] font-medium text-white bg-black dark:bg-white dark:text-black px-3 py-2 rounded-lg">
                 Mulai Gratis
               </Link>
             </div>

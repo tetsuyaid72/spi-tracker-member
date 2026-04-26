@@ -25,31 +25,31 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-16 md:py-28 bg-white">
+    <section id="faq" className="py-16 md:py-28 bg-white dark:bg-[#0c0e1a]">
       <div className="max-w-3xl mx-auto px-6 md:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pertanyaan Umum</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Pertanyaan Umum</h2>
         </div>
 
         <div className="space-y-3">
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
-              <div key={i} className="border border-gray-100 rounded-xl overflow-hidden">
+              <div key={i} className="border border-gray-100 dark:border-white/[0.06] rounded-xl overflow-hidden">
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left bg-white hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between p-4 sm:p-5 text-left bg-white dark:bg-[#151827] hover:bg-gray-50 dark:hover:bg-white/[0.04] transition-colors"
                 >
-                  <span className="text-[14px] sm:text-[15px] font-medium text-gray-900 pr-4">{faq.q}</span>
+                  <span className="text-[14px] sm:text-[15px] font-medium text-gray-900 dark:text-gray-100 pr-4">{faq.q}</span>
                   {isOpen ? (
-                    <Minus size={16} className="text-gray-400 shrink-0" />
+                    <Minus size={16} className="text-gray-400 dark:text-gray-500 shrink-0" />
                   ) : (
-                    <Plus size={16} className="text-gray-400 shrink-0" />
+                    <Plus size={16} className="text-gray-400 dark:text-gray-500 shrink-0" />
                   )}
                 </button>
                 {isOpen && (
-                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 bg-white">
-                    <p className="text-[14px] text-gray-600 leading-relaxed">{faq.a}</p>
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 bg-white dark:bg-[#151827]">
+                    <p className="text-[14px] text-gray-600 dark:text-gray-400 leading-relaxed">{faq.a}</p>
                   </div>
                 )}
               </div>
