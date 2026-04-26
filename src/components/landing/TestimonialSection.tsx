@@ -3,7 +3,7 @@ export default function TestimonialSection() {
     <section className="py-16 md:py-28 bg-gray-50 dark:bg-[#0a0c16]">
       <div className="max-w-3xl mx-auto px-6 md:px-8 text-center">
         <p className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-900 dark:text-white leading-relaxed mb-6">
-          &ldquo;Sekarang monitoring toko jauh lebih mudah. Dashboard sangat membantu owner dan tim lapangan lebih disiplin.&rdquo;
+          &ldquo;Sekarang  dengan adanya aplikasi SPI Tracker ini jadi lebih mudah untuk mempercepat pengantaran. Aplikasinya juga simple dan mudah digunakan.&rdquo;
         </p>
         <div>
           <p className="text-[15px] font-semibold text-gray-900 dark:text-white">Ahmad Rizki</p>

@@ -1,15 +1,15 @@
 import { X, Check } from "lucide-react";
 
 const PROBLEMS = [
-  "Data toko berantakan",
-  "Sulit pantau sales",
-  "Tidak tahu kunjungan",
-  "Laporan lambat",
+  "Susah mengigat toko member",
+  "Buang buang waktu",
+  "Tidak bisa aplikasi saat Rit 2",
+  "Setoran jadi lambat",
 ];
 
 const SOLUTIONS = [
   "Semua toko terdata",
-  "Monitoring real-time",
+  "Sangat mudah digunakan",
   "Peta interaktif",
   "Dashboard cepat",
 ];
