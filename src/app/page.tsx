@@ -7,9 +7,8 @@ import LandingNav from "@/components/landing/LandingNav";
 import HeroSection from "@/components/landing/HeroSection";
 import TrustSection from "@/components/landing/TrustSection";
 import ProblemSection from "@/components/landing/ProblemSection";
-import SolutionSection from "@/components/landing/SolutionSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
-import BenefitSection from "@/components/landing/BenefitSection";
+import StatsSection from "@/components/landing/StatsSection";
 import TestimonialSection from "@/components/landing/TestimonialSection";
 import FAQSection from "@/components/landing/FAQSection";
 import CTASection from "@/components/landing/CTASection";
@@ -37,26 +36,25 @@ export default function Home() {
 
   if (!showLanding) {
     return (
-      <div className="h-screen flex items-center justify-center bg-white dark:bg-[#0c0e1a]">
+      <div className="h-screen flex items-center justify-center bg-white">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center p-2 shadow-lg shadow-blue-600/20">
-            <img src="/spi.png" alt="SPI" className="w-full h-full object-contain" />
+          <div className="w-12 h-12 rounded-2xl bg-black flex items-center justify-center p-2">
+            <img src="/spi.png" alt="SPI" className="w-full h-full object-contain brightness-0 invert" />
           </div>
-          <div className="w-5 h-5 border-2 border-blue-200 dark:border-blue-800 border-t-blue-600 dark:border-t-blue-400 rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-gray-200 border-t-black rounded-full animate-spin" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0c0e1a]">
+    <div className="min-h-screen bg-white">
       <LandingNav />
       <HeroSection />
       <TrustSection />
       <ProblemSection />
-      <SolutionSection />
       <FeaturesSection />
-      <BenefitSection />
+      <StatsSection />
       <TestimonialSection />
       <FAQSection />
       <CTASection />

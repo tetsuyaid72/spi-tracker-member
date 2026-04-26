@@ -1,0 +1,23 @@
+const STATS = [
+  { value: "48+", label: "Toko Terdaftar" },
+  { value: "6", label: "Wilayah Aktif" },
+  { value: "24/7", label: "Akses Dashboard" },
+  { value: "100%", label: "Cloud Based" },
+];
+
+export default function StatsSection() {
+  return (
+    <section className="py-20 md:py-28 bg-white">
+      <div className="max-w-6xl mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{stat.value}</p>
+              <p className="text-[13px] text-gray-500">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
