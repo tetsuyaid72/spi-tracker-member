@@ -8,11 +8,11 @@ export default function HeroSection() {
         {/* Headline */}
         <div className="text-center max-w-4xl mx-auto mb-12">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-6">
-            Kelola Toko & Tim Lapangan{" "}
-            <span className="block mt-2">Lebih Rapi, Lebih Cepat.</span>
+            Sistem Tracker Toko{" "}
+            <span className="block mt-2">untuk Tim Lapangan Modern.</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
-            Pantau kunjungan toko, distribusi wilayah, dan performa tim lapangan dalam satu dashboard modern yang simpel digunakan.
+            Lacak lokasi toko member, kelola distribusi wilayah, dan pantau aktivitas tim lapangan secara real-time dalam satu platform yang mudah digunakan.
           </p>
 
           {/* CTA Buttons */}
