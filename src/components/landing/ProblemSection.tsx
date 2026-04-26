@@ -20,7 +20,7 @@ export default function ProblemSection() {
       <div className="max-w-6xl mx-auto px-6 md:px-8">
         {/* Section header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3">
             Sebelum & Sesudah SPI Tracker
           </h2>
           <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 max-w-lg mx-auto">

@@ -14,7 +14,7 @@ export default function FeaturesSection() {
     <section id="fitur" className="py-16 md:py-28 bg-gray-50 dark:bg-[#0a0c16]">
       <div className="max-w-6xl mx-auto px-6 md:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">Fitur Lengkap untuk Operasional Modern</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3">Fitur Lengkap untuk Operasional Modern</h2>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">Semua yang Anda butuhkan untuk mempercepat pekerjaan anda dilapangan</p>
         </div>
 

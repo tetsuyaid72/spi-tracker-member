@@ -5,7 +5,7 @@ export default function CTASection() {
   return (
     <section className="py-16 md:py-28 bg-white dark:bg-[#0c0e1a]">
       <div className="max-w-4xl mx-auto px-6 md:px-8 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
           Siap Dapatkan Insentif Lebih Banyak?
         </h2>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">

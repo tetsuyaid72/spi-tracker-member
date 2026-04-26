@@ -9,7 +9,7 @@ export default function HeroSection() {
       <div className="max-w-6xl mx-auto px-6 md:px-8">
         {/* Headline */}
         <div className="text-center max-w-4xl mx-auto mb-12">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-6">
+          <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-[1.15] tracking-tight mb-5">
             Sistem Tracker Toko{" "}
             <span className="block mt-2">untuk Mempermudah DeleveryMan.</span>
           </h1>

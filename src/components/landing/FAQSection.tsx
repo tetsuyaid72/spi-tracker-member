@@ -28,7 +28,7 @@ export default function FAQSection() {
     <section id="faq" className="py-16 md:py-28 bg-white dark:bg-[#0c0e1a]">
       <div className="max-w-3xl mx-auto px-6 md:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Pertanyaan Umum</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">Pertanyaan Umum</h2>
         </div>
 
         <div className="space-y-3">
