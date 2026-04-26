@@ -5,7 +5,7 @@ import { Plus, Minus } from "lucide-react";
 const FAQS = [
   {
     q: "Apa itu SPI Tracker?",
-    a: "SPI Tracker adalah aplikasi monitoring seluruh toko dengan aplikasi ini bisa membantu anda mengelola lokasi toko, menambahkan toko baru, dan dMempermudah perkerjaan anda.",
+    a: "SPI Tracker adalah aplikasi monitoring seluruh toko dengan aplikasi ini bisa membantu anda mengelola lokasi toko, menambahkan toko baru, dan Mempermudah perkerjaan anda.",
   },
   {
     q: "Apakah bisa dipakai di HP?",
