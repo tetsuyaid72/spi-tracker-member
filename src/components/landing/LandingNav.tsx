@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 const NAV_LINKS = [
   { label: "Fitur", href: "#fitur" },
@@ -13,6 +14,7 @@ const NAV_LINKS = [
 export default function LandingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -53,9 +55,16 @@ export default function LandingNav() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.06] transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
             <Link
               href="/login"
-              className="text-[14px] text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5"
+              className="text-[14px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors px-3 py-1.5"
             >
               Login
             </Link>
@@ -92,7 +101,14 @@ export default function LandingNav() {
               </a>
             ))}
             <div className="pt-2 space-y-2">
-              <Link href="/login" className="block text-center text-[14px] text-gray-600 px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 text-[14px] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/[0.04] rounded-lg transition-colors"
+              >
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              </button>
+              <Link href="/login" className="block text-center text-[14px] text-gray-600 dark:text-gray-400 px-3 py-2 hover:bg-gray-50 dark:hover:bg-white/[0.04] rounded-lg transition-colors">
                 Login
               </Link>
               <Link href="/login" className="block text-center text-[14px] font-medium text-white bg-black dark:bg-white dark:text-black px-3 py-2 rounded-lg">
