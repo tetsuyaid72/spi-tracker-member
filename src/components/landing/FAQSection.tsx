@@ -5,7 +5,7 @@ import { Plus, Minus } from "lucide-react";
 const FAQS = [
   {
     q: "Apa itu SPI Tracker?",
-    a: "SPI Tracker adalah aplikasi monitoring toko dan tim lapangan yang membantu Anda mengelola lokasi toko, kunjungan sales, distribusi wilayah, dan dashboard operasional secara real-time.",
+    a: "SPI Tracker adalah aplikasi monitoring seluruh toko dengan aplikasi ini bisa membantu anda mengelola lokasi toko, menambahkan toko baru, dan dMempermudah perkerjaan anda.",
   },
   {
     q: "Apakah bisa dipakai di HP?",
@@ -13,7 +13,7 @@ const FAQS = [
   },
   {
     q: "Apakah bisa banyak user?",
-    a: "Tentu. SPI Tracker mendukung multi-user dengan role berbeda: Admin, Supervisor, dan Sales. Setiap role memiliki akses sesuai kebutuhannya.",
+    a: "Tentu. SPI Tracker mendukung multi-user dengan role berbeda: Admin, dan User sebagai Deliman. Setiap role memiliki akses sesuai kebutuhannya.",
   },
   {
     q: "Apakah ada peta toko?",

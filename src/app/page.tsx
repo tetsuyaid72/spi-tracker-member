@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import LandingNav from "@/components/landing/LandingNav";
 import HeroSection from "@/components/landing/HeroSection";
-import TrustSection from "@/components/landing/TrustSection";
+
 import ProblemSection from "@/components/landing/ProblemSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import StatsSection from "@/components/landing/StatsSection";
@@ -51,7 +51,6 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-[#0c0e1a]">
       <LandingNav />
       <HeroSection />
-      <TrustSection />
       <ProblemSection />
       <FeaturesSection />
       <StatsSection />

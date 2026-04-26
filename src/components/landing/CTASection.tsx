@@ -6,10 +6,10 @@ export default function CTASection() {
     <section className="py-16 md:py-28 bg-white dark:bg-[#0c0e1a]">
       <div className="max-w-4xl mx-auto px-6 md:px-8 text-center">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
-          Siap Upgrade Operasional Toko Anda?
+          Siap Dapatkan Insentif Lebih Banyak?
         </h2>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-          Mulai kelola toko dan tim lapangan dengan lebih efisien hari ini
+          Mulai percepat perkerjaan anda dengan aplikasi sederhana ini
         </p>
         <Link
           href="/login"
