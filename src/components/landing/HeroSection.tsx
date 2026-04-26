@@ -23,16 +23,10 @@ export default function HeroSection() {
               href="/login"
               className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-black dark:bg-white text-white dark:text-black text-[15px] font-medium rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all w-full sm:w-auto"
             >
-              Mulai Gratis
+              Mulai Sekarang
               <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <a
-              href="#fitur"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-white/[0.06] text-gray-700 dark:text-gray-300 text-[15px] font-medium rounded-lg border border-gray-200 dark:border-white/[0.1] hover:border-gray-300 dark:hover:border-white/[0.2] hover:bg-gray-50 dark:hover:bg-white/[0.08] transition-all w-full sm:w-auto"
-            >
-              <Play size={14} className="text-gray-500" />
-              Lihat Demo
-            </a>
+
           </div>
         </div>
 
@@ -152,20 +146,18 @@ function DashboardAnimation() {
 
       {/* Stats overlay */}
       <div
-        className={`absolute bottom-4 left-4 right-4 flex gap-2 transition-all duration-700 ${
+        className={`absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 grid grid-cols-4 gap-1.5 sm:gap-2 transition-all duration-700 ${
           showStats ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         {STATS.map((stat) => (
           <div
             key={stat.label}
-            className="flex-1 bg-white/80 dark:bg-[#1a1c2e]/80 backdrop-blur-sm rounded-lg p-2.5 border-gray-200/50 dark:border-white/[0.06]"
+            className="bg-white/90 dark:bg-[#1a1c2e]/90 backdrop-blur-md rounded-lg p-2 sm:p-2.5 border border-gray-200/30 dark:border-white/[0.06] text-center"
           >
-            <div className="flex items-center gap-1.5 mb-1">
-              <stat.icon size={10} className="text-gray-400 dark:text-gray-500" />
-              <span className="text-[9px] text-gray-400 dark:text-gray-500">{stat.label}</span>
-            </div>
-            <p className="text-[14px] font-bold text-gray-900 dark:text-white">{stat.value}</p>
+            <stat.icon size={12} className="text-gray-400 dark:text-gray-500 mx-auto mb-1" />
+            <p className="text-[13px] sm:text-[15px] font-bold text-gray-900 dark:text-white leading-none">{stat.value}</p>
+            <span className="text-[8px] sm:text-[9px] text-gray-400 dark:text-gray-500 leading-none mt-0.5 block">{stat.label}</span>
           </div>
         ))}
       </div>
