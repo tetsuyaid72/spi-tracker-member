@@ -7,13 +7,13 @@ const STATS = [
 
 export default function StatsSection() {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-16 md:py-28 bg-white">
       <div className="max-w-6xl mx-auto px-6 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{stat.value}</p>
-              <p className="text-[13px] text-gray-500">{stat.label}</p>
+              <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2">{stat.value}</p>
+              <p className="text-[12px] sm:text-[13px] text-gray-500">{stat.label}</p>
             </div>
           ))}
         </div>

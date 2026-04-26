@@ -16,9 +16,9 @@ const SOLUTIONS = [
 
 export default function ProblemSection() {
   return (
-    <section id="solusi" className="py-20 md:py-28 bg-white">
+    <section id="solusi" className="py-16 md:py-28 bg-white">
       <div className="max-w-6xl mx-auto px-6 md:px-8">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16">
           {/* Problem */}
           <div>
             <h3 className="text-[13px] font-semibold text-gray-400 uppercase tracking-wider mb-6">Masalah Umum</h3>
