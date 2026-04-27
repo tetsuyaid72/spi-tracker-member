@@ -116,9 +116,10 @@ interface MapComponentProps {
   onDeleteStore?: (id: string) => void;
   interactiveOptions?: boolean;
   showLocateButton?: boolean;
-}
+  hideLegend?: boolean;
+  }
 
-export default function MapComponent({ stores, showHeatmap, onCenterChange, onDeleteStore, interactiveOptions = true, showLocateButton = false }: MapComponentProps) {
+export default function MapComponent({ stores, showHeatmap, onCenterChange, onDeleteStore, interactiveOptions = true, showLocateButton = false, hideLegend = false }: MapComponentProps) {
   const mapRef = useRef<L.Map | null>(null);
   const { theme } = useTheme();
 
@@ -381,7 +382,7 @@ export default function MapComponent({ stores, showHeatmap, onCenterChange, onDe
       )}
 
       {/* Region legend */}
-      {!showHeatmap && stores.length > 0 && (
+      {!showHeatmap && stores.length > 0 && !hideLegend && (
         <div className="absolute top-3 left-3 z-[1000] bg-white/90 dark:bg-[#1e2035]/90 backdrop-blur-md rounded-xl shadow-lg shadow-black/5 dark:shadow-black/20 border-gray-200/60 dark:border-white/[0.08] p-2.5 max-w-[180px]">
           <p className="text-[9px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Wilayah</p>
           <div className="space-y-1">

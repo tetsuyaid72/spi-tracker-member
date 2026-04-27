@@ -124,6 +124,7 @@ export default function MapPage() {
         onCenterChange={handleCenterChange}
         onDeleteStore={deleteStore}
         interactiveOptions={true}
+        hideLegend={isAddingStore}
       />
 
       {/* Success toast */}
