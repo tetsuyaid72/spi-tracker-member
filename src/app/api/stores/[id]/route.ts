@@ -4,7 +4,52 @@ import { stores } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await params;
+  const existing = await db
+    .select()
+    .from(stores)
+    .where(eq(stores.id, id))
+    .limit(1);
+
+  if (existing.length === 0) {
+    return Response.json({ error: "Store not found" }, { status: 404 });
+  }
+
+  const store = existing[0];
+  const userRole = (session.user as any).role || "USER";
+
+  if (
+    store.status !== "APPROVED" &&
+    store.userId !== session.user.id &&
+    userRole !== "ADMIN"
+  ) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  return Response.json({
+    ...store,
+    recordedAt:
+      store.recordedAt instanceof Date
+        ? store.recordedAt.getTime()
+        : Number(store.recordedAt),
+    status: store.status || "APPROVED",
+  });
+}
+
 export async function PATCH(
+
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {

@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { stores } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { or, eq } from "drizzle-orm";
+
 import { headers } from "next/headers";
 import { nanoid } from "./utils";
 
@@ -16,26 +17,40 @@ export async function GET() {
 
   const userRole = (session.user as any).role || "USER";
 
-  let allStores;
-  if (userRole === "ADMIN") {
-    // Admin sees everything
-    allStores = await db.select().from(stores);
-  } else {
-    // User sees: ALL approved stores + their own pending/rejected stores
-    const allRows = await db.select().from(stores);
-    allStores = allRows.filter(
-      (s) => s.status === "APPROVED" || s.userId === session.user.id
-    );
-  }
+    const lightweightColumns = {
+    id: stores.id,
+    name: stores.name,
+    region: stores.region,
+    whatsapp: stores.whatsapp,
+    lat: stores.lat,
+    lng: stores.lng,
+    userId: stores.userId,
+    userName: stores.userName,
+    recordedAt: stores.recordedAt,
+    status: stores.status,
+  };
 
-  // Convert timestamps to numbers for frontend compatibility
-  const result = allStores.map((s) => ({
+  const visibleStores =
+    userRole === "ADMIN"
+      ? await db.select(lightweightColumns).from(stores)
+      : await db
+          .select(lightweightColumns)
+          .from(stores)
+          .where(or(eq(stores.status, "APPROVED"), eq(stores.userId, session.user.id)));
+
+  const result = visibleStores.map((s) => ({
     ...s,
+    imageData: "",
     recordedAt: s.recordedAt instanceof Date ? s.recordedAt.getTime() : Number(s.recordedAt),
-    status: s.status || "APPROVED", // fallback for legacy rows
+    status: s.status || "APPROVED",
   }));
 
-  return Response.json(result);
+  return Response.json(result, {
+    headers: {
+      "Cache-Control": "private, max-age=15, stale-while-revalidate=45",
+    },
+  });
+
 }
 
 export async function POST(request: Request) {

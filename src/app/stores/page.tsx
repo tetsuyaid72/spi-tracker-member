@@ -44,8 +44,10 @@ export default function StoresPage() {
   const isAdmin = (currentUser as any)?.role === "ADMIN";
 
   const stores = useAppStore(state => state.stores);
-  const fetchStores = useAppStore(state => state.fetchStores);
+    const fetchStores = useAppStore(state => state.fetchStores);
+  const fetchStoreDetail = useAppStore(state => state.fetchStoreDetail);
   const deleteStore = useAppStore(state => state.deleteStore);
+
   const updateStore = useAppStore(state => state.updateStore);
   const isLoading = useAppStore(state => state.isLoading);
 
@@ -104,13 +106,16 @@ export default function StoresPage() {
     return result;
   }, [visibleStores, searchQuery, activeRegion, sortMode]);
 
-  const handleShare = async (store: typeof filteredStores[0]) => {
+    const handleShare = async (store: typeof filteredStores[0]) => {
+    const detail = store.imageData ? store : await fetchStoreDetail(store.id);
+    const imageData = detail?.imageData || "";
     const url = `https://www.google.com/maps/search/?api=1&query=${store.lat},${store.lng}`;
     const text = `📍 ${store.name}${store.region ? ` (${store.region})` : ''}\n${url}`;
     try {
       let files: File[] = [];
-      if (store.imageData && store.imageData.startsWith('data:')) {
-        const res = await fetch(store.imageData);
+      if (imageData && imageData.startsWith('data:')) {
+        const res = await fetch(imageData);
+
         const blob = await res.blob();
         const file = new File([blob], `${store.name.replace(/\s+/g, '_')}.jpg`, { type: 'image/jpeg' });
         files = [file];
@@ -132,11 +137,25 @@ export default function StoresPage() {
     }
   };
 
-  const openEdit = (store: typeof filteredStores[0]) => {
-    setEditData({ name: store.name, region: store.region, whatsapp: store.whatsapp, imageData: store.imageData });
+    const openEdit = async (store: typeof filteredStores[0]) => {
+    const detail = store.imageData ? store : await fetchStoreDetail(store.id);
+    const editableStore = detail || store;
+
+    setEditData({
+      name: editableStore.name,
+      region: editableStore.region,
+      whatsapp: editableStore.whatsapp,
+      imageData: editableStore.imageData,
+    });
     setEditingStoreId(store.id);
     setSaveSuccess(false);
   };
+
+  const openImagePreview = async (store: typeof filteredStores[0]) => {
+    const detail = store.imageData ? store : await fetchStoreDetail(store.id);
+    setImagePreview({ url: detail?.imageData || store.imageData || "", name: store.name });
+  };
+
 
   const handleEditImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -335,7 +354,8 @@ export default function StoresPage() {
                 store={store}
                 isOwner={isAdmin || store.userId === currentUser?.id}
                 onShare={() => handleShare(store)}
-                onViewImage={() => setImagePreview({ url: store.imageData || "", name: store.name })}
+                                onViewImage={() => openImagePreview(store)}
+
                 onEdit={() => openEdit(store)}
                 onDelete={() => handleDelete(store.id, store.name)}
               />

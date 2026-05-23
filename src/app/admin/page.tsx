@@ -40,6 +40,7 @@ export default function AdminPage() {
   const deleteStore = useAppStore((s) => s.deleteStore);
   const updateStore = useAppStore((s) => s.updateStore);
   const fetchStores = useAppStore((s) => s.fetchStores);
+  const fetchStoreDetail = useAppStore((s) => s.fetchStoreDetail);
   const fetchUsers = useAppStore((s) => s.fetchUsers);
   const approveStore = useAppStore((s) => s.approveStore);
   const rejectStore = useAppStore((s) => s.rejectStore);
@@ -143,14 +144,18 @@ export default function AdminPage() {
     }
   };
 
-  const openEditDialog = (storeId: string) => {
+  const openEditDialog = async (storeId: string) => {
     const store = stores.find((s) => s.id === storeId);
     if (!store) return;
+
+    const detail = store.imageData ? store : await fetchStoreDetail(storeId);
+    const editableStore = detail || store;
+
     setEditData({
-      name: store.name,
-      region: store.region,
-      whatsapp: store.whatsapp,
-      imageData: store.imageData,
+      name: editableStore.name,
+      region: editableStore.region,
+      whatsapp: editableStore.whatsapp,
+      imageData: editableStore.imageData,
     });
     setEditingStoreId(storeId);
   };
@@ -219,6 +224,13 @@ export default function AdminPage() {
   };
 
   const viewingStore = viewingStoreId ? stores.find((s) => s.id === viewingStoreId) : null;
+
+  useEffect(() => {
+    if (viewingStoreId) {
+      const store = stores.find((s) => s.id === viewingStoreId);
+      if (store && !store.imageData) fetchStoreDetail(viewingStoreId);
+    }
+  }, [fetchStoreDetail, stores, viewingStoreId]);
 
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

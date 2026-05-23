@@ -51,8 +51,10 @@ interface AppState {
   isLoading: boolean;
 
   // Fetch data from API
-  fetchStores: () => Promise<void>;
+    fetchStores: () => Promise<void>;
+  fetchStoreDetail: (id: string) => Promise<StoreLocation | null>;
   fetchUsers: () => Promise<void>;
+
 
   // Store actions
   addStore: (store: Omit<StoreLocation, 'id' | 'recordedAt' | 'status'>) => Promise<void>;
@@ -87,7 +89,26 @@ export const useAppStore = create<AppState>()((set) => ({
     }
   },
 
+    fetchStoreDetail: async (id) => {
+    try {
+      const res = await fetch(`/api/stores/${id}`);
+      if (!res.ok) return null;
+
+      const detail = await res.json();
+      set((state) => ({
+        stores: state.stores.map((s) =>
+          s.id === id ? { ...s, ...detail } : s
+        ),
+      }));
+      return detail;
+    } catch (err) {
+      console.error('Failed to fetch store detail:', err);
+      return null;
+    }
+  },
+
   fetchUsers: async () => {
+
     try {
       const res = await fetch('/api/users');
       if (res.ok) {
@@ -136,7 +157,10 @@ export const useAppStore = create<AppState>()((set) => ({
       if (res.ok) {
         const updated = await res.json();
         set((state) => ({
-          stores: state.stores.map((s) => (s.id === id ? updated : s)),
+                    stores: state.stores.map((s) =>
+            s.id === id ? { ...s, ...updated } : s
+          ),
+
         }));
       }
     } catch (err) {
@@ -154,7 +178,10 @@ export const useAppStore = create<AppState>()((set) => ({
       if (res.ok) {
         const updated = await res.json();
         set((state) => ({
-          stores: state.stores.map((s) => (s.id === id ? updated : s)),
+                    stores: state.stores.map((s) =>
+            s.id === id ? { ...s, ...updated } : s
+          ),
+
         }));
       }
     } catch (err) {
@@ -172,7 +199,10 @@ export const useAppStore = create<AppState>()((set) => ({
       if (res.ok) {
         const updated = await res.json();
         set((state) => ({
-          stores: state.stores.map((s) => (s.id === id ? updated : s)),
+                    stores: state.stores.map((s) =>
+            s.id === id ? { ...s, ...updated } : s
+          ),
+
         }));
       }
     } catch (err) {
