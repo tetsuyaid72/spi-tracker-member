@@ -29,8 +29,10 @@ export interface StoreLocation {
   name: string;
   region: Region | '';
   whatsapp: string;
-  imageData: string;
+    imageData: string;
+  hasImageData?: boolean;
   lat: number;
+
   lng: number;
   userId: string;
   userName: string;

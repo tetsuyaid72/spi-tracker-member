@@ -1,9 +1,9 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { stores } from "@/db/schema";
-import { or, eq } from "drizzle-orm";
-
+import { or, eq, sql } from "drizzle-orm";
 import { headers } from "next/headers";
+
 import { nanoid } from "./utils";
 
 export async function GET() {
@@ -18,6 +18,7 @@ export async function GET() {
   const userRole = (session.user as any).role || "USER";
 
     const lightweightColumns = {
+
     id: stores.id,
     name: stores.name,
     region: stores.region,
@@ -28,6 +29,8 @@ export async function GET() {
     userName: stores.userName,
     recordedAt: stores.recordedAt,
     status: stores.status,
+    hasImageData: sql<boolean>`length(coalesce(${stores.imageData}, '')) > 0`,
+
   };
 
   const visibleStores =
@@ -40,8 +43,10 @@ export async function GET() {
 
   const result = visibleStores.map((s) => ({
     ...s,
-    imageData: "",
+        imageData: "",
+    hasImageData: Boolean(s.hasImageData),
     recordedAt: s.recordedAt instanceof Date ? s.recordedAt.getTime() : Number(s.recordedAt),
+
     status: s.status || "APPROVED",
   }));
 

@@ -43,8 +43,9 @@ export default function StoresPage() {
   const currentUser = session?.user;
   const isAdmin = (currentUser as any)?.role === "ADMIN";
 
-  const stores = useAppStore(state => state.stores);
-    const fetchStores = useAppStore(state => state.fetchStores);
+    const stores = useAppStore(state => state.stores);
+  const fetchStores = useAppStore(state => state.fetchStores);
+
   const fetchStoreDetail = useAppStore(state => state.fetchStoreDetail);
   const deleteStore = useAppStore(state => state.deleteStore);
 
@@ -107,6 +108,7 @@ export default function StoresPage() {
   }, [visibleStores, searchQuery, activeRegion, sortMode]);
 
     const handleShare = async (store: typeof filteredStores[0]) => {
+
     const detail = store.imageData ? store : await fetchStoreDetail(store.id);
     const imageData = detail?.imageData || "";
     const url = `https://www.google.com/maps/search/?api=1&query=${store.lat},${store.lng}`;
@@ -138,6 +140,7 @@ export default function StoresPage() {
   };
 
     const openEdit = async (store: typeof filteredStores[0]) => {
+
     const detail = store.imageData ? store : await fetchStoreDetail(store.id);
     const editableStore = detail || store;
 
@@ -353,11 +356,13 @@ export default function StoresPage() {
                 key={store.id}
                 store={store}
                 isOwner={isAdmin || store.userId === currentUser?.id}
-                onShare={() => handleShare(store)}
-                                onViewImage={() => openImagePreview(store)}
+                                onShare={() => handleShare(store)}
+                onViewImage={() => openImagePreview(store)}
+
 
                 onEdit={() => openEdit(store)}
                 onDelete={() => handleDelete(store.id, store.name)}
+                onLoadImage={() => fetchStoreDetail(store.id)}
               />
             ))}
           </div>
@@ -478,88 +483,108 @@ function StatCard({ icon, label, value, color }: { icon: React.ReactNode; label:
 // ── Store Card ────────────────────────────
 
 function StoreCard({
-  store, isOwner, onShare, onViewImage, onEdit, onDelete,
+  store, onViewImage, onLoadImage,
 }: {
-  store: { id: string; name: string; region: Region | ""; whatsapp: string; imageData: string; lat: number; lng: number; recordedAt: number; status: StoreStatus; };
+  store: { id: string; name: string; region: Region | ""; whatsapp: string; imageData: string; hasImageData?: boolean; lat: number; lng: number; recordedAt: number; status: StoreStatus; };
   isOwner: boolean;
   onShare: () => void;
   onViewImage: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onLoadImage: () => void;
 }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const didRequestImage = useRef(false);
   const regionColor = store.region ? REGION_COLORS[store.region as Region] : '#9ca3af';
 
+  useEffect(() => {
+    if (!store.hasImageData || store.imageData || didRequestImage.current) return;
+
+    const card = cardRef.current;
+    if (!card) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || didRequestImage.current) return;
+      didRequestImage.current = true;
+      onLoadImage();
+      observer.disconnect();
+    }, { rootMargin: "250px" });
+
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, [onLoadImage, store.hasImageData, store.imageData]);
+
   return (
-    <div className="group rounded-2xl bg-white dark:bg-[#151827] border-gray-100 dark:border-white/[0.06] overflow-hidden hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-black/30 hover:-translate-y-0.5 transition-all duration-300">
-      {/* ── Image Hero ── */}
-      <button onClick={onViewImage} className="relative w-full h-44 bg-gray-100 dark:bg-white/[0.04] overflow-hidden block">
+    <div
+      ref={cardRef}
+      className="group flex min-h-[96px] w-full items-center gap-3 rounded-3xl border border-gray-100/80 bg-white p-3 shadow-sm shadow-gray-200/50 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-white/[0.06] dark:bg-[#151827] dark:shadow-black/20 md:min-h-[104px] md:p-4"
+    >
+      <button
+        type="button"
+        onClick={onViewImage}
+        className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-gray-100 dark:bg-white/[0.04] md:h-[72px] md:w-[72px]"
+        aria-label={`Lihat foto ${store.name}`}
+      >
         {store.imageData ? (
-          <>
-            <img src={store.imageData} alt={store.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-          </>
-        ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-gray-200 dark:text-gray-700">
-            <Store size={28} strokeWidth={1.5} />
-            <span className="text-[10px] font-medium mt-1.5">Tidak ada foto</span>
+          <img
+            src={store.imageData}
+            alt={store.name}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : store.hasImageData ? (
+          <div className="flex h-full w-full items-center justify-center text-gray-300 dark:text-gray-600">
+            <Loader2 size={18} className="animate-spin" />
           </div>
-        )}
-
-        <div className="absolute top-3 right-3">
-          <StatusBadge status={store.status} />
-        </div>
-
-        {store.region && (
-          <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-semibold text-white bg-black/30 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full" style={{ background: regionColor }} />
-            {store.region}
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-gray-300 dark:text-gray-600">
+            <Store size={24} strokeWidth={1.6} />
           </div>
         )}
       </button>
 
-      {/* ── Content ── */}
-      <div className="p-4">
-        <h3 className="font-bold text-gray-900 dark:text-gray-100 text-[14px] leading-tight mb-1.5 line-clamp-1">{store.name}</h3>
+      <div className="min-w-0 flex-1 py-0.5">
+        <h3 className="mb-1 line-clamp-2 min-w-0 text-[16px] font-bold leading-tight tracking-[-0.01em] text-gray-900 dark:text-gray-100 md:text-[17px]">
+          {store.name}
+        </h3>
 
-        <div className="flex items-center gap-3 mb-3">
-          {store.whatsapp && (
-            <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">
-              <Phone size={10} />
-              {store.whatsapp}
-            </a>
+        <div className="mb-1.5 flex min-w-0 items-center gap-1.5">
+          {store.region && (
+            <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: regionColor }} />
           )}
-          <span className="text-[10px] text-gray-300 dark:text-gray-600 ml-auto">{timeAgo(store.recordedAt)}</span>
+          <p className="truncate text-[12px] font-medium text-gray-500 dark:text-gray-400">
+            {store.region || "Wilayah belum diisi"}
+          </p>
         </div>
 
-        {/* ── Action Buttons ── */}
-        <div className="flex gap-1.5">
-          <a href={`https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`} target="_blank" rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[11px] font-semibold bg-gray-900 dark:bg-indigo-600 text-white hover:bg-gray-800 dark:hover:bg-indigo-500 shadow-sm transition-all">
-            <NavIcon size={12} /> Maps
+        <div className="flex min-w-0 items-center gap-2">
+          <StatusBadge status={store.status} compact />
+          <span className="truncate text-[11px] text-gray-400 dark:text-gray-500">
+            Update {timeAgo(store.recordedAt)}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex shrink-0 flex-col items-center gap-2">
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${store.lat},${store.lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gray-900 text-white shadow-sm shadow-gray-900/10 transition-colors hover:bg-gray-800 dark:bg-indigo-600 dark:hover:bg-indigo-500"
+          aria-label={`Buka Maps ${store.name}`}
+        >
+          <NavIcon size={17} strokeWidth={2.2} />
+        </a>
+        {store.whatsapp && (
+          <a
+            href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition-colors hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:bg-emerald-500/20"
+            aria-label={`WhatsApp ${store.name}`}
+          >
+            <MessageCircle size={17} strokeWidth={2.1} />
           </a>
-          {store.whatsapp && (
-            <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-500/20 transition-all">
-              <MessageCircle size={12} />
-            </a>
-          )}
-          <button onClick={onShare}
-            className="flex items-center justify-center px-3 py-2.5 rounded-xl text-[11px] font-semibold bg-gray-50 dark:bg-white/[0.06] text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.1] transition-all">
-            <Share2 size={12} />
-          </button>
-          {isOwner && (
-            <>
-              <button onClick={onEdit}
-                className="flex items-center justify-center px-3 py-2.5 rounded-xl text-[11px] font-semibold bg-gray-50 dark:bg-white/[0.06] text-gray-500 dark:text-gray-400 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-all">
-                <Pencil size={12} />
-              </button>
-              <button onClick={onDelete}
-                className="flex items-center justify-center px-3 py-2.5 rounded-xl text-[11px] font-semibold bg-gray-50 dark:bg-white/[0.06] text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-all">
-                <Trash2 size={12} />
-              </button>
-            </>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
@@ -567,7 +592,8 @@ function StoreCard({
 
 // ─── Status Badge ────────────────────────
 
-function StatusBadge({ status }: { status: StoreStatus }) {
+function StatusBadge({ status, compact = false }: { status: StoreStatus; compact?: boolean }) {
+
   const config: Record<StoreStatus, { label: string; bg: string; text: string }> = {
     APPROVED: { label: "Approved", bg: "bg-emerald-500/90 backdrop-blur-md", text: "text-white" },
     PENDING: { label: "Pending", bg: "bg-amber-500/90 backdrop-blur-md", text: "text-white" },
@@ -575,7 +601,8 @@ function StatusBadge({ status }: { status: StoreStatus }) {
   };
   const c = config[status] || config.PENDING;
   return (
-    <span className={`text-[9px] font-bold px-2 py-1 rounded-lg ${c.bg} ${c.text} uppercase tracking-wider shadow-sm`}>
+        <span className={`${compact ? "text-[8px] px-1.5 py-0.5" : "text-[9px] px-2 py-1"} font-bold rounded-lg ${c.bg} ${c.text} uppercase tracking-wider shadow-sm`}>
+
       {c.label}
     </span>
   );
